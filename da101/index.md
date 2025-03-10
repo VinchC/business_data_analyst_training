@@ -89,3 +89,81 @@ Chaque type indexable a son symbole spécifique pour sa création :
 - liste => crochets [ ]
 - tuple => parenthèses ( ) ou rien
 - dictionnaire => les accolades { }
+
+## Opérateurs - 5 types
+
+# Arithmétiques => servent à faire des calculs :
+
+operators_arithm = [
++,
+-,
+/,
+/,
+//,
+
+<!-- => division entière => renvoie l'entier d'une division (d'un float ?) ex. 6.0//4 renvoie 1 -->
+
+\*\*,
+
+  <!-- => puissance -->
+
+%,
+
+<!-- => modulo => renvoie le reste d'une division ex. 9 % 6 renvoie 3 -->
+
+]
+
+# Assignation => servent à faire une opération et à affecter son résultat en même temps :
+
+operators_assig = [
++= ==> Addition
+-= ==> Soustraction
+*= ==> Multiplication
+/= ==> Division réelle
+//= ==> Division entière
+**= ==> Puissance
+%= ==> Modulo
+]
+
+ex. :
+x += 3 est équivalent à x = x + 3
+De même, z **= 2 revient à écrire z = z**2
+
+# Comparaison => renvoie True ou False :
+
+operators_comp = [
+< ==> x < y == Est-ce que x est strictement inférieur à y ?
+<= ==> x <= y == Est-ce que x inférieur ou égal à y ?
+">" ==> x > y == Est-ce que x est strictement supérieur à y ?
+">=" ==> x >= y == Est-ce que x est supérieur ou égal à y ?
+== ==> x == y == Est-ce que x est égal à y ?
+!= ==> x != y == Est-ce que x est différent de y ?
+]
+
+# Appartenance => teste si une valeur est présente ou pas dans une liste ou un tuple en renvoyant un booléen
+
+operators_belong = [
+in ==> présent,
+not in ==> ...absent,
+]
+ex. print(x in list) ==> renvoie True ou false
+
+# Logiques => permet de faire de l'arithmétique booléenne, de vérifier si une ou toutes les expressions sont vraies
+
+operators_logic = [
+and => les deux conditions sont vraies,
+or => une des deux conditions est vraie,
+not => obtient la négation d'une expression
+]
+
+# Structures de contrôle :
+
+if, elif, else
+
+variable_name = True if value < 10 else False
+
+équivaut à:
+if value < 10:
+variable_name = True
+else:
+variable_name = False
