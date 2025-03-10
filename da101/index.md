@@ -70,3 +70,22 @@ carte_id = {"prenom": "paul", "nom": "lefebvre", "emission": 1978}
 print(carte_id)
 carte_id["prenom"] = "guillaume"
 print(carte_id)
+
+Ajout d'une valeur à un dico :
+carte_id["new_key"] = "new_value"
+
+Suppression d'une clé
+carte_id.pop("new_key")
+
+# Résumé
+
+Les listes, tuples et dictionnaires sont des variables indexables pouvant contenir plusieurs élements, accessibles via des crochets [] en indiquant :
+
+- listes et tuples => l'indice de la position (commence par 0)
+- dictionnaires => la clé
+
+Chaque type indexable a son symbole spécifique pour sa création :
+
+- liste => crochets [ ]
+- tuple => parenthèses ( ) ou rien
+- dictionnaire => les accolades { }
