@@ -100,7 +100,7 @@ carte_id.pop("new_key")
 operators_arithm = [
   +,
   -,
-  /,
+  *,
   /,
   //,
 
@@ -176,7 +176,7 @@ else:
 
 # while => tant que la condition n'est pas vérifiée, elle continue d'être évaluée => attention aux boucles infinies
 
-# for => la condition est évaluée un certain nombre de fois fini, déterminé à l'avance
+# La boucle for => la condition est évaluée un certain nombre de fois fini, déterminé à l'avance
 for element in sequence:
   instruction1
   ...
@@ -184,7 +184,11 @@ for element in sequence:
 
 autre_instruction
 
+break permet de sortir d'une boucle lorsqu'une condition spécifique est validée.
+
 # La fonction range(start, end, path)
+Permet de parcourir des nombres entiers.
+
 i = 0
 total = 0
 total_even = 0
@@ -239,5 +243,75 @@ print(''.join(new))
 word = "serre"
 print(word[::-1])
 
-# Boucles emboîtées
+Le slicing ::-1 pour inverser l'ordre d'une séquence
+
+# 4. Boucles emboîtées
+
+# Pour chaque liste dans la liste de listes
+count = 0
+
+for word in text:
+    for e in word:
+        if e == "e":
+            count+=1
+print(count)
+
+# Variante avec indexation de listes
+expressions = ['serre iconoclaste', 'invraisemblable imaginer']
+count = 0
+
+for ex in expressions:
+    for char in range(0, len(ex)):
+        if ex[char] == "i":
+            count +=1
+print(count)
+
+
+# 5. Compréhension de listes
+
+ma_liste = []
+# Pour i allant de 0 à 9
+for i in range(10):
+    ma_liste.append(i**2)
+
+# Variante plus élégante :
+
+ma _liste = [i**2 for i in range(10)]
+
+good_marks = [mark + 4 for mark in bad_marks]
+
+puissances_trois = [i**3 for i in range(10)]
+print(puissances_trois)
+
+liste_double = [i*2 for i in liste_nombres]
+print(liste_double)
+
+liste_pairs = ['pair' if i%2 == 0 else "impair" for i in liste_nombres]
+print(liste_pairs)
+
+# 6. La fonction enumerate
+Permet d'avoir accès à l'indice d'un élément dans une séquence en plus de sa valeur. 
+
+Syntaxe : 
+for index, element in enumerate(sequence):
+
+L = [22, 65, 75, 93, 64, 47, 91, 53, 86, 53, 88, 17, 94, 39]
+
+max_value = 0
+max_index = 0
+
+for index, value in enumerate(L):
+      if value > max_value:
+        max_value=value
+        max_index=index
+print(max_value, max_index)
+
+# La fonction Zip
+Permet de parcourir parallèlement plusieurs séquences de même longueur dans une même boucle for.
+
+Syntaxe :
+for element1, element2 in zip(sequence1, sequence2):
+
+for element1, element2 in zip(revenus, depenses):
+  economies.append(element1 - element2)
 
