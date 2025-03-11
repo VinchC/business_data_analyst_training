@@ -663,3 +663,139 @@ df = pd.DataFrame(data=x, columns=feature_names)
 
 # Affichage des 10 premières lignes à l'aide de la méthode head
 df.head(n = 10)
+
+
+# Mise en pratique 
+team_names # nom_equipe = match
+team_possession # nom_equipe, possession = match
+team_total_pass # nom_equipe, nb_passes = match
+ratings_player # nom_joueurs, notes = match
+pass_player # nom_joueurs, nb_passes = match
+role_player # nom_joueurs, role = match
+
+print(team_names[1190418])
+print(team_possession[1190418][1])
+
+ratings = []
+
+for i in ratings_player[1190418]:
+  ratings.append(float(i[1]))
+
+print(ratings)
+
+print(ratings.sort(reverse))
+
+# ou
+
+ratings = [float(i[1]) for i in ratings_player[1190418]]
+
+
+# Initialiser deux variables maximum_index et maximum à 0
+maximum_index = 0 
+maximum = 0
+
+# Parcourir la liste ratings à l'aide de enumerate en actualisant maximum_index et maximum.
+for i, j in enumerate(ratings): 
+    if float(j) > float(maximum):
+        maximum = j
+        maximum_index = i
+
+print('Le meilleur joueur était :', ratings_player[1190418][maximum_index][0])
+
+
+
+# Première solution élégante et rapide
+poste = [j[1] for i,j in zip(ratings_player[1190418], role_player[1190418]) if float(i[1]) == 0]
+print(poste)
+
+# Deuxième solution
+# Initialiser une liste vide poste
+poste = []
+
+# Parcourir deux listes simultanément : la première pour récupérer la note du joueur, la deuxième le poste
+for i,j in zip(ratings_player[1190418], role_player[1190418]):
+    if float(i[1]) == 0 :
+        poste.append(j[1])
+
+# Affichage de poste
+print(poste)
+
+ratings_no_zero = []
+
+for i in ratings_player[1190418]:
+  if float(i[1]) != 0:
+    ratings_no_zero.append(float(i[1]))
+
+
+ratings_no_zero = [i[1] for i in ratings_player[1190418] if float(i[1]) != 0]
+# ou
+ratings_no_zero = [i for i in ratings if i != 0]
+
+print(ratings_no_zero)
+
+
+def average(list):
+  total = 0
+  for i in list:
+    total += float(i)
+  average = total / len(list)
+  return average
+
+print(average(ratings_no_zero))
+
+def mean_ratings(id_match):
+  total = 0
+  ratings_no_zero = [float(i[1]) for i in ratings_player[id_match] if float(i[1]) != 0]
+  for i in ratings_no_zero:
+    total += i
+  average = total / len(ratings_no_zero)
+  return average
+
+print(mean_ratings(1190424))
+
+print(team_total_pass[1190424])
+
+def check_passes(id_match):
+  checked = True
+  sum_of_passes_by_player = sum(float(i[1]) for i in pass_player[id_match])
+  total_passes_team = float(team_total_pass[id_match][1])
+  if sum_of_passes_by_player != total_passes_team:
+    checked = False
+  return checked, sum_of_passes_by_player, total_passes_team
+print(check_passes(1190424))
+
+def highest_possession():
+  max = 0
+  for i in team_possession.keys():
+    if float(team_possession[i][1]) > max:
+      max = float(team_possession[i][1])
+      team = team_possession[i][0]
+  return max, team
+
+print(highest_possession())
+
+
+
+def team_player_names(id_match):
+  return role_player[id_match]
+
+print(team_player_names(1190496))
+
+
+def midfielders_name(id_match):
+  mid = [i[0] for i in role_player[id_match] if i[1] == 'MC']
+  return mid
+
+print(midfielders_name(1190422))
+
+def worst_player(id_match):
+  ratings = ratings_player[id_match]
+  minimum = 10
+  
+  for i in ratings:
+    if float(i[1]) < minimum and float(i[1]) != 0:
+      minimum = float(i[1])
+      worst_player = i[0]
+  return 'Le moins bon joueur était :', worst_player, 'avec une moyenne de', minimum
+
+print(worst_player(1190496))
