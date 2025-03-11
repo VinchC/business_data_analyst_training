@@ -9,28 +9,28 @@
 
 # Découpage des listes
 
-=> ma_liste = [1, 5, "Bonjour", -1.4, "ça", 103, "va"]
+ma_liste = [1, 5, "Bonjour", -1.4, "ça", 103, "va"]
 
 # Récupération des 4 PREMIERS éléments de ma_liste :
-=> premiers_elements = ma_liste[0:4]
+premiers_elements = ma_liste[0:4]
 
 # ou
 
-=> premiers_elements = ma_liste[:4]
+premiers_elements = ma_liste[:4]
 
 # Récupération des 3 DERNIERS éléments de ma_liste :
-=> derniers_elements = ma_liste[-3:]
+derniers_elements = ma_liste[-3:]
 
 # Méthodes des listes
 
 # pop permet de supprimer un élément d'une liste à l'indice spécifié et renvoie la valeur de l'élément supprimé
-=> ma_liste.pop(4)
+ma_liste.pop(4)
 # L'index des valeurs est maj après suppression d'une donnée!!
 
 # remove supprime la première occurence d'une valeur dans une liste et ne renvoie rien
 
 # Insertion de la valeur "Hello" à l'indice 2
-=> ma_liste.insert(2, "Hello")
+ma_liste.insert(2, "Hello")
 
 # append ajoute une valeur à la fin d'une liste
 
@@ -52,9 +52,9 @@ print(llll)
 # Les tuples
 
 # - la définition d'un tuple se fait avec ou sans parenthèses
-  => un_tuple = ("Bonjour", -1, 133) 
-  # ou 
-  => un_tuple = "Bonjour", -1, 133
+un_tuple = ("Bonjour", -1, 133) 
+# ou 
+un_tuple = "Bonjour", -1, 133
 # - l'indexation d'un tuple est identique à celle d'une liste
 # - les tuples ne sont pas modifiables
 
@@ -62,11 +62,13 @@ print(llll)
 
 # Les dictionnaires
 
-# Structure de données très particulière car les éléments d'un dictionnaire peuvent être indexés librement par des nombres, des chaînes de caractères et même des tuples.
+"""
+Un dictionnaire est une structure de données où les données sont indexées par des clés (nombres, chaînes de caractères et même des tuples).
 
-# - la définition d'un dictionnaire se fait entre accolades {}
-# - chaque élément du dictionnaire est un couple clé : valeur
-# - l'accès aux informations du dictionnaire se fait en utilisant les clés comme indice
+- la définition d'un dictionnaire se fait entre accolades {}
+- chaque élément du dictionnaire est un couple clé : valeur
+- l'accès aux informations du dictionnaire se fait en utilisant les clés comme indice
+"""
 
 # Création d'un dico et maj d'une valeur :
 carte_id = {"prenom": "paul", "nom": "lefebvre", "emission": 1978}
@@ -97,8 +99,9 @@ carte_id.pop("new_key")
 
 # Arithmétiques => servent à faire des calculs :
 
+"""
 operators_arithm = [
-  +,
+  + 
   -,
   *,
   /,
@@ -115,9 +118,10 @@ operators_arithm = [
 # => modulo => renvoie le reste d'une division ex. 9 % 6 renvoie 3
 
 ]
+"""
 
 # Assignation => servent à faire une opération et à affecter son résultat en même temps :
-
+"""
 operators_assig = [
   += # ==> Addition
   -= # ==> Soustraction
@@ -127,13 +131,14 @@ operators_assig = [
   **= # ==> Puissance
   %= # ==> Modulo
 ]
-
+"""
 # ex. :
 # x += 3 est équivalent à x = x + 3
 # De même, z **= 2 revient à écrire z = z**2
 
 # Comparaison => renvoie True ou False :
 
+"""
 operators_comp = [
 < # ==> x < y == Est-ce que x est strictement inférieur à y ?
 <= # ==> x <= y == Est-ce que x inférieur ou égal à y ?
@@ -142,27 +147,34 @@ operators_comp = [
 == # ==> x == y == Est-ce que x est égal à y ?
 != # ==> x != y == Est-ce que x est différent de y ?
 ]
+"""
 
 # Appartenance => teste si une valeur est présente ou pas dans une liste ou un tuple en renvoyant un booléen
 
+"""
 operators_belong = [
-  in # ==> présent,
+  in, # ==> présent,
   not in # ==> ...absent,
 ]
-ex. 
+"""
+
 print(x in list) # ==> renvoie True ou false
 
 # Logiques => permet de faire de l'arithmétique booléenne, de vérifier si une ou toutes les expressions sont vraies
 
+"""
 operators_logic = [
   and # => les deux conditions sont vraies,
   or # => une des deux conditions est vraie,
   not # => obtient la négation d'une expression
 ]
+"""
 
 # Structures de contrôle :
 
+"""
 if, elif, else
+"""
 
 variable_name = True if value < 10 else False
 
@@ -184,10 +196,14 @@ for element in sequence:
 
 autre_instruction
 
-break permet de sortir d'une boucle lorsqu'une condition spécifique est validée.
+"""
+break permet de sortir d'une boucle lorsqu'une condition spécifique est validée
+"""
 
 # La fonction range(start, end, path)
-Permet de parcourir des nombres entiers.
+"""
+Permet de parcourir des nombres entiers
+"""
 
 i = 0
 total = 0
@@ -243,7 +259,9 @@ print(''.join(new))
 word = "serre"
 print(word[::-1])
 
+"""
 Le slicing ::-1 pour inverser l'ordre d'une séquence
+"""
 
 # 4. Boucles emboîtées
 
@@ -276,7 +294,7 @@ for i in range(10):
 
 # Variante plus élégante :
 
-ma _liste = [i**2 for i in range(10)]
+ma_liste = [i**2 for i in range(10)]
 
 good_marks = [mark + 4 for mark in bad_marks]
 
@@ -290,10 +308,14 @@ liste_pairs = ['pair' if i%2 == 0 else "impair" for i in liste_nombres]
 print(liste_pairs)
 
 # 6. La fonction enumerate
+"""
 Permet d'avoir accès à l'indice d'un élément dans une séquence en plus de sa valeur. 
+"""
 
+"""
 Syntaxe : 
 for index, element in enumerate(sequence):
+"""
 
 L = [22, 65, 75, 93, 64, 47, 91, 53, 86, 53, 88, 17, 94, 39]
 
@@ -307,10 +329,12 @@ for index, value in enumerate(L):
 print(max_value, max_index)
 
 # La fonction Zip
+"""
 Permet de parcourir parallèlement plusieurs séquences de même longueur dans une même boucle for.
 
 Syntaxe :
 for element1, element2 in zip(sequence1, sequence2):
+"""
 
 for element1, element2 in zip(revenus, depenses):
   economies.append(element1 - element2)
@@ -318,11 +342,14 @@ for element1, element2 in zip(revenus, depenses):
 
 ## Les fonctions
 
+"""
 Syntaxe :
 def ma_fonction(parametre):
   ...
   ...
   return sortie
+"""
+
 
 def double(number):
   return number * 2
@@ -390,13 +417,15 @@ def common_list(l1, l2):
 
 print(common_list(l1, l2))
 
+"""
 Une fonction peut avoir plusieurs paramètres et plusieurs sorties.
+"""
 
-def ma_fonction(paramètre1, paramètre2, paramètre3 ...):
+def ma_fonction(parametre1, parametre2, parametre3):
   ...
   ...
   ...
-  return sortie1, sortie2, sortie3...
+  return sortie1, sortie2, sortie3
 
 """
 Lorsqu'une fonction renvoie plusieurs sorties, le résultat de la fonction est en fait un tuple.
@@ -432,12 +461,13 @@ print(diff1, diff2, diff3)
 On peut spécifier une valeur par défaut à un paramétre lors de la définition d'une fonction.
 """
 
-Ex. : 
 def produit(a=0, b=1):
   return a*b
 
+"""
 produit(a=4) # Par défaut, b prend la valeur 1
    >>> 4
+"""
 
 # 2. Documenter une fonction
 
@@ -446,7 +476,6 @@ Utiliser les triples guillements pour définir le début et la fin d'une documen
 La fonction help() sert à afficher la documentation de Python.
 """
 
-Ex. : 
 print(help(len))
 
 test_list = [[1, 23, 1201, 21, 213 ,2],
@@ -514,3 +543,123 @@ def resolution():
   return x, y, z
 
 print(resolution())
+
+
+## Classes et modules
+
+# 1. Les classes :
+"""
+Une classe d'objets contient 3 types d'éléments fondamentaux :
+ - constructeur : une fonction qui permet d'initialiser un objet de la classe
+ - attributs : des variables spécifiques à l'objet créé permettant de définir ses propriétés
+ - méthodes : des fonctions spécifiques à la classe qui permettent d'interagir avec un objet
+"""
+
+# Définition de la classe Car
+class Car:
+  # Définition du constructeur de la classe Car
+  def __init__(self, color, model, horsepower):
+      # Initialisation des attributs de la classe avec les arguments du constructeur
+      self.color = color
+      self.model = model
+      self.horsepower = horsepower
+
+  # Définition d'une méthode permettant de changer la couleur d'une voiture
+  def change_color(self, new_color):
+      self.color = new_color
+  
+"""
+L'argument self correspond à l'objet appelant la méthode. Cet argument nous permet d'accéder aux attributs de l'objet au sein de la méthode.
+"""
+
+#  Création d'un objet de la classe Car
+new_car = Car(color = "orange", model = "Aventador", horsepower = 700)
+
+class Movie:
+  def __init__(self, nom, realisateur, annee_de_sortie):
+    self.nom = nom
+    self.realisateur = realisateur
+    self.annee_de_sortie = annee_de_sortie
+
+  def description(self):
+    print(self.nom, 'est un film réalisé par', self.realisateur, 'et sorti', self.annee_de_sortie)
+
+new_movie_one = Movie(nom = "Inception", realisateur = "Chris Nolan", annee_de_sortie = 2010)
+new_movie_two = Movie(nom = "Le Parrain", realisateur = "F F Coppola", annee_de_sortie = 1972)
+
+new_movie_one.description()
+new_movie_two.description()
+
+
+# 2. Classes et documentation
+
+"""
+La classe Car permet de construire une voiture.
+
+Paramètres
+----------
+color : Chaîne de caractères : Couleur de la voiture.
+model : Chaîne de caractères : Modèle de la voiture.
+horsepower : Entier : Puissance de la voiture.
+
+Exemple
+-------
+aventador = Car(color = "orange", model = "Aventador", horsepower = 700)
+"""
+class Car:
+  def __init__(self, color, model, horsepower):
+      self.color = color
+      self.model = model
+      self.horsepower = horsepower
+
+  def change_color(self, new_color):
+      """
+      Modifie la couleur d'une voiture.
+
+      Paramètres
+      ----------
+      new_color : Chaîne de caractères : Nouvelle couleur de la voiture.
+      """
+      self.color = new_color
+
+
+# 3. Les modules
+"""
+aka package ou library => fichier Python contenant des définitions de classes et de fonctions.
+Ex. :
+  - pandas ==> manipulation de données
+  - numpy ==> calcul optimisé
+  - matplotlib ==> traçage de graphiques
+  - scikit-learn ==> machine learning
+"""
+
+# Importer un module avec utilisation d'alias - en début de fichier :
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Import de qq fonctions uniquement du module numpy
+from numpy import cos, sin, exp
+
+x = 0
+
+print(np.cos(x))
+
+from sklearn.datasets import fetch_california_housing
+
+california_dataset = fetch_california_housing()
+
+print(type(california_dataset))
+print(california_dataset)
+
+x = california_dataset['data']
+feature_names = california_dataset['feature_names']
+
+# Import du module pandas sous l'alias pd
+import pandas as pd
+
+# Instanciation d'un DataFrame à l'aide du constructeur
+df = pd.DataFrame(data=x, columns=feature_names)
+
+# Affichage des 10 premières lignes à l'aide de la méthode head
+df.head(n = 10)
