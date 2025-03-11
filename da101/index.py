@@ -315,3 +315,202 @@ for element1, element2 in zip(sequence1, sequence2):
 for element1, element2 in zip(revenus, depenses):
   economies.append(element1 - element2)
 
+
+## Les fonctions
+
+Syntaxe :
+def ma_fonction(parametre):
+  ...
+  ...
+  return sortie
+
+def double(number):
+  return number * 2
+print(double(4))
+
+liste = [2,3,1]
+
+def somme(list):
+  total = 0
+  for i in list:
+    total += i
+  return total
+
+print(somme(liste))
+
+liste = [1, 0.12, -54, 12, 0.33, 12]
+
+def list_product(list):
+  total = 1
+  for i in list:
+    total *= i
+  return total
+
+print(list_product(test_list))
+
+def variation(init, final):
+  rate = (final - init)/init * 100
+  return rate
+
+print(variation(2000, 1000))
+
+def f(n):
+  result = n**2
+  return result
+
+print(f(2))
+
+def g(n):
+  result = f(n) + 2
+  return result
+
+print(g(2))
+
+liste = [1, 1, 2, 2, 2, 3, 3, "Bonjour"]
+
+def uniques(list):
+  new_list = []
+  for i in list:
+    if i not in new_list:
+      new_list.append(i)
+  return new_list
+
+print(uniques(liste))
+
+
+l1 =[2,3,4,8,11,7]
+l2 =[2,9,10,7]
+
+def common_list(l1, l2):
+  new = []
+  for i in l1:
+      if i in l2:
+        new.append(i)
+  return new
+
+print(common_list(l1, l2))
+
+Une fonction peut avoir plusieurs paramètres et plusieurs sorties.
+
+def ma_fonction(paramètre1, paramètre2, paramètre3 ...):
+  ...
+  ...
+  ...
+  return sortie1, sortie2, sortie3...
+
+"""
+Lorsqu'une fonction renvoie plusieurs sorties, le résultat de la fonction est en fait un tuple.
+Ex. d'une fonction qui renvoie le premier et le dernier élément d'une liste:
+"""
+
+def first_and_last(a_list):
+    return a_list[0], a_list[-1]
+
+# Utilisation du tuple assignement pour récuperer les sorties de la fonction
+first, last = first_and_last([-2, 32, 31, 231, 4])
+
+def power4(x):
+  return x**1, x**2, x**3, x**4
+
+print(power4(8))
+
+x_1, x_2, x_3, x_4 = power4(x = 8)
+
+print(x_1, x_2, x_3, x_4)
+
+def power_diff(a, b, c, d):
+  diff1 = b - a
+  diff2 = c - b
+  diff3 = d - c
+  return diff1, diff2, diff3
+
+diff1, diff2, diff3 = power_diff(x_1, x_2, x_3, x_4)
+
+print(diff1, diff2, diff3)
+
+"""
+On peut spécifier une valeur par défaut à un paramétre lors de la définition d'une fonction.
+"""
+
+Ex. : 
+def produit(a=0, b=1):
+  return a*b
+
+produit(a=4) # Par défaut, b prend la valeur 1
+   >>> 4
+
+# 2. Documenter une fonction
+
+"""
+Utiliser les triples guillements pour définir le début et la fin d'une documentation.
+La fonction help() sert à afficher la documentation de Python.
+"""
+
+Ex. : 
+print(help(len))
+
+test_list = [[1, 23, 1201, 21, 213 ,2],
+               [2311, 12, 3, 4],
+               [11 , 32, 1, 1, 2, 3, 3],
+               [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
+
+"""
+Cette fonction détermine le nombre d'éléments total présents dans une liste de listes.
+Elle prend une liste en paramètre.
+Un compteur est initialisé à 0, et incrémenté
+"""
+def total_len(list):
+  count = 0
+  for i in list:
+    count += len(i)
+  return count
+
+print(total_len(test_list))
+
+# 3. Les fonctions récursives
+"""
+La récursivité est la propriété pour une fonction de s'évaluer elle-même dans sa propre définition.
+"""
+
+def factorielle(n):
+    if n < 0: 
+        return "Nombre négatif" # arrête la fonction si l'input est négatif
+    
+    # Le cas simple où n ==0
+    if n == 0:
+        return 1
+    else :
+        # On utilise la récurrence n! = n * (n-1)!
+        return n*factorielle(n-1)
+    
+print(factorielle(n=5))
+
+
+def fibonacci(n):
+  if n < 0: 
+      return "Nombre négatif"
+  if n == 0:
+      return 0    # F(0) = 0
+  elif n == 1:
+      return 1    # F(1) = 1 
+  else:
+      return fibonacci(n-1) + fibonacci(n-2)  # F(n) = F(n-1) + F(n-2)
+
+print(fibonacci(10))
+
+
+def resolution():
+  issue = False
+  for x in range(-1, 3):
+    for y in range(-1, 3):
+      for z in range(-1, 3):
+        if x + y + z == 2 and x - y - z == 0 and 2*x + y*z == 0:
+          issue = True
+          break
+      if issue:
+        break
+    if issue:
+      break
+  return x, y, z
+
+print(resolution())
