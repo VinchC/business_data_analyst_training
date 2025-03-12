@@ -1129,3 +1129,99 @@ promotions = np.array([0.75,0.75,1,0.5,1,0.9,0.8,0.75,1,1,1,1,0.6,0.7,0.5,
 ca_per_product2 = unit_price * quantities * promotions
 print(ca_per_product2.sum())
 
+
+### Pandas - Introduction aux Dataframes
+import pandas as pd
+
+"""
+nom, quantité, expiration, prix
+"""
+
+# (a) À partir d'un dictionnaire, créer et afficher le DataFrame df qui pour chaque produit doit contenir de manière organisée 
+dictionnaire = {'Produit': ['miel', 'farine', 'vin'], 
+                'Quantité': [100, 55, 1800],
+                'Date d\'expiration': ['10/08/2025', '25/09/202', '5/10/2023'],
+                'Prix unitaire': [2, 3, 10]}
+
+# Instanciation d'un DataFrame 
+df = pd.DataFrame(data = dictionnaire)
+print(df)
+
+"""
+La fonction read_csv de pandas permet d'importer les données d'un CSV dans un DataFrame
+Syntaxe :
+"""
+pd.read_csv(filepath_or_buffer = '', sep = ',', header = 0, index_col = 0)
+
+# (a) Charger les données contenues dans le fichier transactions.csv dans un DataFrame nommé transactions
+pd.read_csv(filepath_or_buffer , sep = ',', header = 0, index_col = 0)
+
+transactions = pd.read_csv(filepath_or_buffer = 'transactions.csv', sep = ',', header = 0, index_col = 'transaction_id')
+
+
+
+## Principales méthodes de la classe DataFrame
+"""
+Soit un DataFrame df :
+ - df.head() ==> fonction affichant les premières lignes (prend en paramètre un nombre, 5 par défaut)
+ - df.tail() ==> fonction affichant les dernières lignes (prend en paramètre un nombre, 5 par défaut)
+ - df.columns ==> attribut permettant de récupérer le nom des colonnes 
+ - df.shape ==> attribut permettant de récupérer le nombre de lignes (transactions) et de colonnes (caractéristiques)
+ - df.loc[i] ==> fonction affichant la ligne d'indice i
+ - df.loc[[i, j], ['col1', 'col2']] ==> fonction permettant d'afficher les lignes i et j avec les colonnes col1 et col2 uniquement
+ - df[df['col2'] == 3] ou df.loc[df['col2'] == 3] ==> permet d'indexer avec une condition les lignes d'un df
+ - df.iloc[x:y, x:y] ==> fonction permettant d'indexer un DataFrame comme un array numpy [ligne, colonne]
+ - df.describe() ==> renvoie un résumé des stats principales : count, mean (== moyenne), std (écart-type), min, 25%	(premier quartile), 50% (second quartile), 75% (3ème quartile), max - attention à ne pas traiter les variables catégorielles pour lesquelles cela n'a pas de sens
+ - df.value_counts() ==> renvoie le nombre d'occurrences une variable
+"""
+
+
+# (a) Afficher les 20 premières lignes du DataFrame transactions.
+transactions.head(20)
+
+# (b) Afficher les 10 dernières lignes du DataFrame transactions.
+transactions.tail(10)
+
+# (c) Afficher les dimensions du DataFrame transactions ainsi que le nom de la 5ème colonne. Rappelez-vous qu'en Python les indices commencent à 0.
+print(transactions.shape)
+print(transactions.columns[4])
+
+# (a) Dans un DataFrame nommé cat_vars, stocker les variables catégorielles de transactions.
+cat_vars = transactions[['cust_id', 'tran_date', 'prod_subcat_code', 'prod_cat_code', 'Store_type']] 
+print(cat_vars.head(), "\n \n")
+
+# (b) Dans un DataFrame nommé num_vars, stocker les variables quantitatives de transactions.
+num_vars = transactions[['Qty', 'Rate', 'Tax', 'total_amt']] 
+print(num_vars.head())
+
+# (a) Dans un DataFrame nommé transactions_eshop, stocker les transactions qui ont lieu dans un magasin de type "e-Shop"
+transactions_eshop = transactions.loc[transactions['Store_type'] == "e-Shop"]
+
+# (b) Dans un autre DataFrame nommé transactions_id_date, stocker les identifiants des clients et la date des transactions du DataFrame transactions_eshop.
+transactions_id_date = transactions_eshop[['cust_id', 'tran_date']]
+
+# (c) Afficher les 5 premières lignes de transactions_id_date.
+print(transactions_id_date.head())
+
+# (d) Dans un DataFrame nommé transactions_client_268819, stocker toutes les transactions dont l'identifiant du client est 268819
+transactions_client_268819 = transactions.loc[transactions['cust_id'] == 268819]
+print(transactions_client_268819)
+
+# (e) Une colonne d'un DataFrame peut être parcourue comme une liste dans une boucle for. À l'aide d'une boucle for sur la colonne 'total_amt', calculer et afficher le montant total des transactions du client 268819.
+total_amount_client_268819 = sum([float(i) for i in transactions_client_268819['total_amt']])
+print(total_amount_client_268819)
+
+# (a) Utiliser la méthode describe du DataFrame transactions.
+transactions.describe()
+
+# (c) Afficher le nombre d'occurrences de chaque modalité que prend la variable Store_type à l'aide de la méthode value_counts.
+transactions["Store_type"].value_counts()
+
+# (d) Quel est le montant total moyen dépensé ? On s'intéressera à la colonne 'total_amt' de transactions.
+print(transactions['total_amt'].mean())
+
+# (e) Quelle est la quantité maximale achetée ? On s'intéressera à la colonne 'Qty' de transactions.
+print(transactions['Qty'].max())
+
+# (f) Quelle est la moyenne du montant des transactions dont le montant est positif ?
+print((transactions[transactions['total_amt'] > 0]['total_amt']).mean())
