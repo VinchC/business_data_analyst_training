@@ -800,7 +800,7 @@ def worst_player(id_match):
 
 print(worst_player(1190496))
 
-## Numpy pour la Data Science
+## Numpy pour la Data Science : intro aux arrays
 
 """
 numpy = Numerical Python
@@ -872,3 +872,93 @@ print(f_python(X))
 """
 Le module time permet de mesurer un temps d'exécution
 """
+
+
+## Numpy pour la Data Science : manipulation d'arrays
+
+print(X[y == 0])
+
+
+discount_phone = discounts[items == "cell phone"]
+discount_speakers = discounts[items == "speakers"]
+
+print('La réduction pour le téléphone est de', discount_phone[0], 'pourcent.')
+print('La réduction pour les enceintes est de', discount_speakers[0], 'pourcent.')
+
+print(items[quantities < 50], discounts[quantities < 50])
+
+
+print(img.shape)
+
+
+X_gray = np.zeros(shape = (32, 32, 1))
+
+def rgb_to_gray(X):
+    # Obtenir les dimensions de l'image d'entrée
+    n_lignes, n_colonnes, n_canaux = X.shape
+
+    # Créer un tableau pour les niveaux de gris avec un seul canal
+    X_gray = np.zeros(shape=(n_lignes, n_colonnes, 1))
+
+    # Parcourir les lignes de l'image
+    for i, ligne in enumerate(X):
+        # Parcourir les pixels dans chaque ligne
+        for j, pixel in enumerate(ligne):
+            # Calculer la moyenne des intensités des canaux (rouge, vert, bleu)
+            X_gray[i, j] = np.mean(pixel)
+
+    # Retourner l'image convertie en niveaux de gris
+    return X_gray
+  
+"""
+La méthode reshape d'un array de reconstruire les données de l'array avec des dimensions différentes.
+Il est possible de redimensionner un array en n'importe quelle shape tant que les deux shapes ont le même nombre d'éléments.
+"""
+
+# Création d'un array à partir d'une liste à 10 éléments
+X = np.array([i for i in range(1, 11)])   # 1, 2, ..., 10
+
+# Affichage des dimensions de X
+print(X.shape)
+# >>> (10,)
+
+# Affichage de X
+print(X)
+# >>> [1  2  3  4  5  6  7  8  9 10]
+
+# Reshaping de l'array en une matrice à 2 lignes et 5 colonnes
+X_reshaped = X.reshape((2, 5))
+
+# Affichage du nouvel array
+print(X_reshaped)
+# >>> [[ 1  2  3  4  5]
+# >>>  [ 6  7  8  9 10]]
+  
+
+
+X_reshaped = X.reshape((1797, 8, 8))
+
+img = X_reshaped[1100]
+print(img)
+
+
+# Concaténation d'un array : np.concatenate
+"""
+Syntaxe
+"""
+# Concaténation des deux arrays sur l'axe des lignes
+array_3 = np.concatenate([array_1, array_2], axis = 0)
+
+# Concaténation des deux arrays sur l'axe des colonnes
+array_4 = np.concatenate([array_1, array_2], axis = 1)
+
+
+img1 = X_reshaped[560]
+img2 = X_reshaped[561]
+
+img3 = np.concatenate([img1, img2], axis = 0)
+img4 = np.concatenate([img1, img2], axis = 1)
+
+print(img3, img4)
+
+
