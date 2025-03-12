@@ -799,3 +799,76 @@ def worst_player(id_match):
   return 'Le moins bon joueur était :', worst_player, 'avec une moyenne de', minimum
 
 print(worst_player(1190496))
+
+## Numpy pour la Data Science
+
+"""
+numpy = Numerical Python
+utilisation de la classe array
+Ces arrays correspondent à des matrices N-dimensionnelles qui pourront contenir des données très diverses comme des données tabulaires, des séries temporelles ou des images.
+
+"""
+
+X = np.zeros(shape = (6, 6))
+
+X[0:3, 0:3] = 1
+X[3:6, 0:3] = 0
+X[0:3, 3:6] = 0
+X[3:6, 3:6] = -1
+
+print(X)
+
+
+
+X = np.zeros(shape = (6, 6))
+
+# Première solution : on remplace chaque ligne par 'np.array([0, 1, 2, 3, 4, 5])'
+for i in range(len(X)):
+    X[i, :] = np.array([0, 1, 2, 3, 4, 5])
+
+# Deuxième solution : à chaque colonne de X on affecte son indice
+for i in range(len(X)):
+    X[:, i] = i
+
+print(X)
+
+"""
+numpy contient les fonctions suivantes (f ==> F numpy):
+𝑒²      ==> np.exp(x)
+log(𝑥)  ==> np.log(x)
+sin(𝑥)  ==> np.sin(x)
+cos(𝑥)  ==> np.cos(x)
+Arrondi à n décimales	==> np.round(x, decimals = n)
+etc.
+"""
+
+X = np.array([i/100 for i in range(100)])
+
+def f(array):
+  return [np.round(np.exp(np.sin(i) + np.cos(i)), decimals = 2) for i in array][:10]
+
+# Définition de la fonction f
+def f(X):
+    return np.exp(np.sin(X) + np.cos(X))
+
+# Calcul de f(X)
+resultat = f(X)
+
+# On arrondit le résultat à 2 décimales
+arrondi = np.round(resultat, decimals = 2)
+
+# Affichage des 10 premiers éléments du résultat arrondi
+print(arrondi[:10])
+
+
+def f_python(array):
+    n = array.shape[0]
+    for i in range(n):
+        array[i] = np.exp(np.sin(array[i]) + np.cos(array[i]))
+    return array
+
+print(f_python(X))
+
+"""
+Le module time permet de mesurer un temps d'exécution
+"""
