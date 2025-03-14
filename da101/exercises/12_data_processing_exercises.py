@@ -132,8 +132,6 @@ bateau_bleu_le_plus_reserve = bateaux_clients.loc[bateaux_clients['couleur']=='b
 print("Le client ayant reservé le bateau bleu avec le plus de réservations à son actif est :", bateau_bleu_le_plus_reserve['nom_client'])
 
 
-print(bateaux_clients.sort_values(by = ['couleur' == 'bleu', 'nombre_reservations'], ascending = False))
-
 """
 (a) À l'aide d'une opération groupby, déterminer pour chaque client à partir de la quantité d'items achetés dans une transaction (colonne qty) :
 """
