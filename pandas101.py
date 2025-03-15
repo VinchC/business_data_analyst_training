@@ -70,10 +70,19 @@ df['col_name'].unique()
 # Ajouter un index
 
 # Renommer des colonnes
-new_coln = { 'col1': 'new_col1', 'col2': 'new_col2'}
-df = df.rename(new_coln, axis = 1)
+new_cols = { 'col1': 'new_col1', 'col2': 'new_col2'}
+df = df.rename(new_cols, axis = 1)
 
 # Créer une nouvelle colonne et l'ajouter à l'index souhaité ==> ex. créer une nouvelle colonne `"error"` dans **`df`** renseignant la différence entre les variables `"col1"` et `"col2"`.
+
+# Créer une nouvelle col_name dans un df en y affectant le contenu d'une variable
+df['col_name'] = var_name
+
+# Créer une nouvelle colonne new_col en effectuant des opérations sur une colonne existante col_name
+df['new_col'] = df['col_name'].apply(lambda date: date.split('-')[n])
+
+# Créer une col3 contenant la concaténation des valeurs de deux colonnes col1 et col2 (converties en chaîne sde caractères) séparées par un tiret '-'
+df['col3'] = df.astype('str').apply(lambda row: row['col1']+'-'+row['col2'], axis = 1)
 
 # Supprimer une sous-chaîne de caractères dans les valeurs d'une colonne (ex. "-blabla")
 
@@ -85,10 +94,26 @@ df = df.replace(to_replace = ['value1', 'value2', 'value3', 'value4'], value = [
 
 
 
+################################################ Effectuer des opérations sur les valeurs d'un df
+# Remplacer des virgules par des points pour toutes les valeurs d'une colonne (10,98 ==> 10.98)
+df['col_name'] = [str(i).replace(",", ".") for i in df["col_name"]]
+
+# Convertir le type d'une colonne - 1ère méthode 
+df['col_name'] = df['col_name'].astype(float / str / int)
+
+# Convertir le type d'une colonne - 2ème méthode 
+new_types = { 'col1': 'int', 'col2': 'str'}
+df = df.astype(new_types)
+
+# Appliquer sur les valeurs de col_name une fonction func_name prenant en argument une chaîne de caractères et qui renvoie l'élément n de son découpage par le caractère '-'.
+def func_name(e):
+    return e.split('-')[n]
+
+var_name = df['col_name'].apply(func_name)
 
 
 
-################################################ Afficher les données
+################################################ Afficher des données particulières
 # Valeur maximale d'une colonne
 df['col_name'].max()
 
@@ -107,8 +132,6 @@ df['col_name'].min()
 
 
 
-
-
 ################################################ Effectuer des calculs
 # Calculer la somme des valeurs d'une colonne
 
@@ -119,7 +142,6 @@ df['col_name'].mean()
 
 # Calculer la moyenne d'une colonne pour les valeurs strictement supérieures à 0
 df[df['col_name'] > 0].mean()
-
 
 
 
@@ -148,9 +170,7 @@ df.drop_duplicates(subset = 'col_name', keep = 'last', inplace = False)
 
 
 
-
 ################################################ Création de df à partir d'autres df
-
 # Fusionner deux DataFrames via une colonne commune
 
 # Scinder en deux un df
@@ -163,18 +183,3 @@ df_col = df.loc[df['coln'] == 'value']
 # Stocker dans un autre df appelé col1_col2 le contenu intégral des colonnes col1 et col2 ===> toutes les lignes, moins de colonnes
 col1_col2 = df[['col1, col2']]
 
-
-
-
-
-
-################################################ Nettoyer des données
-# Remplacer des virgules par des points pour toutes les valeurs d'une colonne (10,98 ==> 10.98)
-df['col_name'] = [str(i).replace(",", ".") for i in df["col_name"]]
-
-# Convertir le type d'une colonne - 1ère méthode 
-df['col_name'] = df['col_name'].astype(float / str / int)
-
-# Convertir le type d'une colonne - 2ème méthode 
-new_types = { 'col1': 'int', 'col2': 'str'}
-df = df.astype(new_types)

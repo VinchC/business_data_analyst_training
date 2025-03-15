@@ -70,6 +70,7 @@ print("Il y a", doublons, "doublons dans la dernière version de transactions.")
 transactions.drop_duplicates(subset = ["prod_cat_code"], keep = "first")
 
 
+
 """
 (d) Importer le module numpy sous le nom np.
 (e) Remplacer les modalités ['e-Shop', 'TeleShop', 'MBR', 'Flagship store',  np.nan] de la colonne Store_type par les modalités [1, 2, 3, 4, 0]. On en profitera pour remplacer les nan de la colonne prod_subcat_code.
@@ -91,6 +92,7 @@ transactions = transactions.rename(new_names, axis = 1)
 
 # Affichage des premières lignes de transactions
 transactions.head(10)
+
 
 
 """
@@ -124,6 +126,12 @@ days = transactions['tran_date'].apply(get_day)
 months = transactions['tran_date'].apply(get_month)
 years = transactions['tran_date'].apply(get_year)
 
+
+
+"""
+(k) Créer les colonnes 'day', 'month' et 'year' dans le DataFrame et y stocker les valeurs de days, months et years.
+(l) Afficher les 5 premières lignes de transactions.
+"""
 # Création des nouvelles colonnes
 transactions['day'] = days
 transactions['month'] = months
@@ -136,55 +144,13 @@ transactions['day'] = transactions['tran_date'].apply(lambda date: date.split('-
 transactions.head()
 
 
-"""
-(k) Créer les colonnes 'day', 'month' et 'year' dans le DataFrame et y stocker les valeurs de days, months et years. La création d'une nouvelle colonne se fait simplement en la déclarant :
-# Création d'une nouvelle colonne 'day' avec les valeurs contenue dans days.
-transactions['day'] = days
-(l) Afficher les 5 premières lignes de transactions.
-"""
-# Définition des fonctions à appliquer à la colonne 'tran_date'
-def get_day(date):
-    """
-    Prend en argument une date sous forme de chaîne de caractères.
-    
-    La date doit avoir le format 'JJ-MM-AAAA'.
-    
-    Cette fonction renvoie le jour (JJ).
-        """
-    
-    # Découpage de la chaîne sur le caractère '-'
-    splits = date.split('-')
-    
-    # On renvoie le premier élément du découpage (jour)
-    day = splits[0]
-    return day
-
-def get_month(date):
-    return date.split('-')[1]
-
-def get_year(date):
-    return date.split('-')[2]
-    
-    
-# Application des fonctions
-days = transactions['tran_date'].apply(get_day)
-months = transactions['tran_date'].apply(get_month)
-years = transactions['tran_date'].apply(get_year)
-
-# Création des nouvelles colonnes
-transactions['day'] = days
-transactions['month'] = months
-transactions['year'] = years
-
-# Affichage des premières lignes de transactions
-transactions.head()
-
 
 """
 (m) À l'aide d'une fonction lambda appliquée sur transactions, créer une colonne 'prod_cat' dans transactions contenant la concaténation des valeurs de prod_cat_code et prod_subcat_code séparées par un tiret '-'. N'oubliez pas de convertir les valeurs en chaînes de caractères.
 """
 transactions['prod_cat'] = transactions.astype('str').apply(lambda row: row['prod_cat_code']+'-'+row['prod_subcat_code'], axis = 1)
 print(transactions['prod_cat'])
+
 
 
 """
