@@ -49,8 +49,6 @@ df['col_name'].value_counts()
 
 # Trier les valeurs selon plusieurs colonnes hiérarchisées
 
-# Afficher les modalités d'une colonne
-
 # Afficher les valeurs statistiques principales d'un df
 
 # Indiquer le nombre de valeurs manquantes dans une colonne
@@ -71,15 +69,16 @@ df['col_name'].unique()
 ################################################ Modification d'un DataFrame
 # Ajouter un index
 
-# Renommer une colonne existante
+# Renommer des colonnes
+new_coln = { 'col1': 'new_col1', 'col2': 'new_col2'}
+df = df.rename(new_coln, axis = 1)
 
 # Créer une nouvelle colonne et l'ajouter à l'index souhaité ==> ex. créer une nouvelle colonne `"error"` dans **`df`** renseignant la différence entre les variables `"col1"` et `"col2"`.
 
 # Supprimer une sous-chaîne de caractères dans les valeurs d'une colonne (ex. "-blabla")
 
-# Changer le type des valeurs d'une colonne de string en int
-
-# Mettre à jour les modalités d'une colonne  ==> ex. pour la colonne `"col1"`, remplacer les modalités `'aaa'`, `'bbb'`, `'ccc'` et `'ddd'` par `0`, `1`, `2` et `3`
+# Remplacer les modalités d'une colonne par d'autres
+df = df.replace(to_replace = ['value1', 'value2', 'value3', 'value4'], value = [1, 2, 3, 4]) 
 
 # Ajouter des modalités à une colonne selon des conditions ==> ex. `court-terme` pour tous les prêts d'une durée inférieure ou égale à 10 mois
 
@@ -128,10 +127,16 @@ df[df['col_name'] > 0].mean()
 
 ################################################ Nettoyer des données
 # Vérifier la présence de doublons
+df.duplicated()
 
-# Supprimer les doublons en gardant la première occurrence
+# Comptabiliser le total de doublons
+df.duplicated().sum()
 
-# Supprimer les doublons en gardant la dernière occurrence
+# Supprimer les tous les doublons d'un df en gardant la première occurrence
+df.drop_duplicates(keep = 'first', inplace = False)
+
+# Supprimer les doublons d'une colonne en particulier en gardant la dernière occurrence
+df.drop_duplicates(subset = 'col_name', keep = 'last', inplace = False)
 
 # Afficher le nb de valeurs manquantes pour chaque colonne de df
 
@@ -167,5 +172,9 @@ col1_col2 = df[['col1, col2']]
 # Remplacer des virgules par des points pour toutes les valeurs d'une colonne (10,98 ==> 10.98)
 df['col_name'] = [str(i).replace(",", ".") for i in df["col_name"]]
 
-# Changer le type d'une colonne
+# Convertir le type d'une colonne - 1ère méthode 
 df['col_name'] = df['col_name'].astype(float / str / int)
+
+# Convertir le type d'une colonne - 2ème méthode 
+new_types = { 'col1': 'int', 'col2': 'str'}
+df = df.astype(new_types)
