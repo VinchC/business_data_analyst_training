@@ -45,14 +45,33 @@ df[df['col_name'] > 0].describe()
 # Afficher les modalités d'une colonne col_name et leur nombre respectif d'occurrences
 df['col_name'].value_counts()
 
+# Afficher le mode (la modalité la plus fréquente) d'une colonne
+df['col_name'].mode()[0]
+
 # Trier les valeurs selon une colonne
 
 # Trier les valeurs selon plusieurs colonnes hiérarchisées
 
-# Afficher les valeurs statistiques principales d'un df
+# Afficher le nb de NaN pour chaque colonne
+df.isna().sum(axis = 0)
 
-# Indiquer le nombre de valeurs manquantes dans une colonne
-df['col1'].isnull().count()
+# Afficher le nombre de NaN dans une colonne
+df['col_name'].isna().sum(axis = 0)
+
+# Afficher le nb de colonnes ayant des valeurs manquantes (= NaN)
+df.isna().any(axis = 0)
+
+# Afficher le total de lignes ayant des valeurs manquantes (= NaN)
+df.isna().any(axis = 1).sum()
+
+# Afficher le nom de la colonne qui a le plus de NaN
+df.isna().sum(axis = 0).idxmax()
+
+# Afficher les entrées de df qui contiennent au moins une NaN
+df.loc[df.isna().any(axis = 1)].head()
+
+# Afficher les entrées de df qui contiennent au moins une NaN dans les colonnes col_1 et col_2
+df.loc[df[['col_1', 'col_2']].isna().any(axis = 1)].head()
 
 # Afficher le nombre de valeurs uniques pour chaque colonne d'un df
 df.nunique()
@@ -154,18 +173,23 @@ df.duplicated()
 # Comptabiliser le total de doublons
 df.duplicated().sum()
 
-# Supprimer les tous les doublons d'un df en gardant la première occurrence
+# Supprimer tous les doublons d'un df en gardant la première occurrence
 df.drop_duplicates(keep = 'first', inplace = False)
 
 # Supprimer les doublons d'une colonne en particulier en gardant la dernière occurrence
 df.drop_duplicates(subset = 'col_name', keep = 'last', inplace = False)
 
-# Afficher le nb de valeurs manquantes pour chaque colonne de df
+# Supprimer les entrées pour lequelles les valeurs de 2 colonnes col_1 et col_2 sont vides
+df = df.dropna(axis = 0, how = 'all', subset = ['col_1', 'col_2'])
 
-# Remplacer les valeurs manquantes d'une colonne par son mode (= élément le plus fréquent d'une série statistique)
+# Remplacer les NaN d'une colonne par -1
+df['col_name'] = df['col_name'].fillna(-1)
+
+# Remplacer les NaN d'une colonne par son mode
+df['col_name'] = df['col_name'].fillna(df['col_name'].mode()[0])
 
 # Remplacer les valeurs manquantes d'une colonne par la moyenne de cette colonne
-
+df['col_name'] = df['col_name'].fillna(df['col_name'].mean())
 
 
 
