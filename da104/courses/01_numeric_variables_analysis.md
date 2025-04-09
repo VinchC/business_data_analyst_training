@@ -8,10 +8,6 @@ L'objectif de ce module est donc de comprendre des éléments de base en statist
 
 Voici une vidéo introductive au module :
 
-<center<video width="600" height="540"
-src="https://assets-datascientest.s3.eu-west-1.amazonaws.com/INTRO+MODULE+104+-+STATISTIQUES+EXPLORATOIRES.mp4"  
- controls
-</video</center
 
 Dans ce premier notebook, l'intérêt sera porté aux **variables numériques**.
 
@@ -39,9 +35,7 @@ import numpy as np
 df = pd.read_csv("heart.csv")
 df.head()
 
-<hr style="border-width:2px;border-color:#75DFC1"
-<h3 style = "text-align:center"   1. Série statistique, indicateurs de position et de dispersion</h3 
-<hr style="border-width:2px;border-color:#75DFC1"
+1. Série statistique, indicateurs de position et de dispersion
 
 Une **série statistique** est une liste de valeurs d’un même ensemble. L’ordre des termes n’est pas significatif (à contrario d’une **série temporelle** où les éléments dépendent de leur position dans le temps).<br
 
