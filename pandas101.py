@@ -117,6 +117,11 @@ df = df.replace(to_replace = ['value1', 'value2', 'value3', 'value4'], value = [
 # Remplacer des virgules par des points pour toutes les valeurs d'une colonne (10,98 ==> 10.98)
 df['col_name'] = [str(i).replace(",", ".") for i in df["col_name"]]
 
+# Remplacer les valeurs d'une colonne par d'autres
+df.replace({'incorrect_val1' : 'correct_val1', 
+                 'incorrect_val2' : 'correct_val2'},
+                inplace = True)
+
 # Convertir le type d'une colonne - 1ère méthode 
 df['col_name'] = df['col_name'].astype(float / str / int)
 
@@ -174,7 +179,7 @@ df.duplicated()
 df.duplicated().sum()
 
 # Supprimer tous les doublons d'un df en gardant la première occurrence
-df.drop_duplicates(keep = 'first', inplace = False)
+df = df.drop_duplicates(keep = 'first', inplace = False)
 
 # Supprimer les doublons d'une colonne en particulier en gardant la dernière occurrence
 df.drop_duplicates(subset = 'col_name', keep = 'last', inplace = False)
@@ -191,6 +196,8 @@ df['col_name'] = df['col_name'].fillna(df['col_name'].mode()[0])
 # Remplacer les valeurs manquantes d'une colonne par la moyenne de cette colonne
 df['col_name'] = df['col_name'].fillna(df['col_name'].mean())
 
+# Passer une chaîne de caractères en majuscule
+'string'.upper()
 
 
 
