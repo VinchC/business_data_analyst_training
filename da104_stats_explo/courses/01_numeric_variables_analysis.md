@@ -8,7 +8,6 @@ L'objectif de ce module est donc de comprendre des éléments de base en statist
 
 Voici une vidéo introductive au module :
 
-
 Dans ce premier notebook, l'intérêt sera porté aux **variables numériques**.
 
 **`pandas`**, grâce à la classe `DataFrame` et ses méthodes, permet d'obtenir rapidement les statistiques descriptives de variables quantitatives. Ce sera le principal outil utilisé pour mener ces études, présenté dans la première partie de ce notebook.
@@ -82,11 +81,7 @@ Pour réaliser une analyse descriptive d'une variable numérique, on fait appel 
 
 Pour mieux comprendre les indicateurs de position nous allons nous appuyer sur le schéma suivant:
 
-<br<br
-
-<img src="https://assets-datascientest.s3.eu-west-1.amazonaws.com/104_stats_explo/indicateurs_positions.png" style="height:300px"
-
-<br<br
+<img src="pictures/indicateurs_positions.png">
 
 Les petits carrés représentent les valeurs dont nous étudions la distribution.
 
@@ -97,17 +92,17 @@ Par exemple:
 - Si le quantile d'ordre 0.10 vaut 1000, cela signifie que 10% des données sont inférieures à 1000.
 - De même, si un quantile d'ordre 0.57 vaut 2500, cela signifie que 57% des données sont inférieures à 2500.
 
-Les **QUARtiles** sont trois quantiles spéciaux qui divisent une distribution en **quatre** intervalles contenant chacun 25% des données. Dans le schéma ci-dessus, on note les quantiles $Q_1$, $Q_2$ et $Q_3$ et on les appelle respectivement premier, deuxième et troisième quartile. Ces quartiles ont des propriétés intéressantes :
+Les **QUARtiles** sont trois quantiles spéciaux qui divisent une distribution en **quatre** intervalles contenant chacun 25% des données. Dans le schéma ci-dessus, on note les quantiles Q_1, Q_2 et Q_3 et on les appelle respectivement premier, deuxième et troisième quartile. Ces quartiles ont des propriétés intéressantes :
 
-- 25% des données sont inférieures à $Q_1$.
+- 25% des données sont inférieures à Q_1.
 
-- 50% des données sont inférieures à $Q_2$. $Q_2$ correspond à la **médiane** de la distribution.
+- 50% des données sont inférieures à Q_2. Q_2 correspond à la **médiane** de la distribution.
 
-- 75% des données sont inférieures à $Q_3$.
+- 75% des données sont inférieures à Q_3.
 
-- L'intervalle allant de $Q_1$ à $Q_3$ contient 50% des données. L'étendue $(Q_3 - Q_1)$ de cet intervalle est ce qu'on appelle l'**écart interquartile**. On le note $IQR$ pour _Inter Quartile Range_.
+- L'intervalle allant de $Q_1$ à Q*3 contient 50% des données. L'étendue (Q_3 - Q_1) de cet intervalle est ce qu'on appelle l'**écart interquartile**. On le note $IQR$ pour \_Inter Quartile Range*.
 
-- On appelle **valeur extrême** toute valeur **supérieure** à $Q_3 + 1.5 * (Q_3 - Q_1)$ (troisième quartile + 1.5 fois l'écart interquartile) ou **inférieure** à $Q_1 - 1.5 * (Q_3 - Q_1)$ (premier quartile - 1.5 fois l'écart interquartile). Ceci veut dire qu'une valeur extrême peut être très grande **ou** très petite par rapport au reste des données.
+- On appelle **valeur extrême** toute valeur **supérieure** à Q_3 + 1.5 _ (Q_3 - Q_1) (troisième quartile + 1.5 fois l'écart interquartile) ou **inférieure** à $Q_1 - 1.5 _ (Q_3 - Q_1)$ (premier quartile - 1.5 fois l'écart interquartile). Ceci veut dire qu'une valeur extrême peut être très grande **ou** très petite par rapport au reste des données.
 
 **Attention**, il est très courant que les termes "valeur extrême" et "valeur aberrante" (_outlier_ en anglais) soient utilisés de manière équivalente, mais il y a une distinction claire à faire entre ces deux termes.
 
@@ -121,13 +116,12 @@ En entreprise, dans une situation idéale, il est du rôle de l'équipe menant l
 
 Les méthodes de la classe `Series` permettant de calculer ces indicateurs sont récapitulées dans le tableau suivant:
 
-|        Méthode | Indicateur | Exemple                                                                                                                                                                 |
-| -------------: | ---------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|     **`mean`** | Moyenne    | **`df['colonne'].mean()`**                                                                                                                                              |
-|      **`min`** | Minimum    | **`df['colonne'].min()`**                                                                                                                                               |
-|      **`max`** | Maximum    | **`df['colonne'].max()`**                                                                                                                                               |
-|   **`median`** | Médiane    | **`df['colonne'].median()`**                                                                                                                                            |
-| **`quantile`** | Quantile   | **`df['colonne'].quantile(q=0.75)`** (renvoie le troisième quartile) <br<br **`df['colonne'].quantile(q=[0.1, 0.9])`** (renvoie le quantile 0,1 **et** le quantile 0.9) |
+Méthode Indicateur | Exemple |
+| **`mean`** | Moyenne | **`df['colonne'].mean()`**
+| **`min`** | Minimum | **`df['colonne'].min()`**
+| **`max`** | Maximum | **`df['colonne'].max()`**
+| **`median`** | Médiane | **`df['colonne'].median()`**
+| **`quantile`** | Quantile | **`df['colonne'].quantile(q=0.75)`** (renvoie le troisième quartile) **`df['colonne'].quantile(q=[0.1, 0.9])`** (renvoie le quantile 0,1 **et** le quantile 0.9)
 
 - **(g)** Pour la colonne **`"cholesterol"`** retrouver la valeur **minimale**, **maximale**, la **médiane** et les **quartiles** de cette variable en appliquant les méthodes appropriées.
 
@@ -162,19 +156,18 @@ print("Les valeurs extrêmes sont toutes les valeurs inférieures à", seuil_min
 
 print("""
 • Les individus dont le taux de cholesterol est supérieur à l'intervalle
-interquartile ont des valeurs réalistes. \033[1mCe ne sont pas des valeurs aberrantes. \033[0m""")
+interquartile ont des valeurs réalistes. Ce ne sont pas des valeurs aberrantes.""")
 display(df.loc[df['cholesterol'] seuil_max])
 
 print("""
 • Les individus dont le taux de cholesterol est inférieur à l'intervalle
 interquartile ont tous des taux de cholesterol nuls, ce qui est impossible.
-\033[1mCe sont donc des valeurs aberrantes.\033[0m
-""")
+Ce sont donc des valeurs aberrantes.""")
 display(df.loc[df['cholesterol'] < seuil_min])
 
-La **moyenne** d'une série statistique numérique $X = (x_1, x_2, ..., x_n)$ est donnée par la formule :
+La **moyenne** d'une série statistique numérique X = (x_1, x_2, ..., x_n) est donnée par la formule :
 
-$$\hat{X}= \displaystyle \frac{1}{n} \sum_{i=1}^{n} x_i$$
+^X= \displaystyle \frac{1}{n} \sum\_{i=1}^{n} x_i$$
 
 où :
 
@@ -221,19 +214,19 @@ Une boîte à moustaches (ou **_boxplot_** en anglais), cherche à **représente
 
 Les indicateurs représentés dans un boxplot sont les suivants:
 
-- **Position** : Le premier quartile $Q_1$, la médiane ou le second quartile $Q_2$ et le troisième quartile $Q_3$.
+- **Position** : Le premier quartile Q_1, la médiane ou le second quartile Q_2 et le troisième quartile Q_3.
 
-- **Dispersion** : L'écart interquartile $IQR$.
+- **Dispersion** : L'écart interquartile IQR.
 
 Voici un schéma explicatif du boxplot :
 
-<img src = "https://assets-datascientest.s3.eu-west-1.amazonaws.com/104_stats_explo/boxplot_explained.png" style="height:300px"
+<img src="pictures/boxplot_explained.png">
 
 Les moustaches représentent l'étendue des valeurs que l'on considère _normales_. **Au-delà de ces moustaches**, on considère les points représentés comme des **valeurs extrêmes**.
 
 Voici un exemple de boxplot tracé avec Python pour la variable **`"cholesterol"`** de notre jeu de données:
 
-<img src = "https://assets-datascientest.s3.eu-west-1.amazonaws.com/104_stats_explo/boxplot_cholesterol.png" style="height:200px"
+<img src="pictures/boxplot_cholesterol.png">
 
 Plusieurs éléments nous intéressent dans la lecture d'un boxplot :
 
@@ -253,7 +246,7 @@ import seaborn as sns
 sns.boxplot(x=df['cholesterol'])
 ```
 
-- **(l)** Importer la librairie **`seaborn`** sous l'alias **`sns`**. <br
+- **(l)** Importer la librairie **`seaborn`** sous l'alias **`sns`**.
   À l'aide de la commande **`.boxplot()`** afficher le boxplot de la variable **`"cholesterol"`**.
 
 # Insérez votre code ici
@@ -262,22 +255,23 @@ import seaborn as sns
 
 sns.boxplot(x=df["cholesterol"]);
 
-Comme la moyenne, l'**écart-type** (_standard deviation_ en anglais) est un indicateur qui ne se représente pas de manière graphique dans un boxplot. L'écart-type permet de mesurer la dispersion de données d'un échantillon. Dans l'image suivante on peut observer comment la loi change en faisant varier l'écart-type (noté avec la lettre sigma : **$\sigma$**) pour des valeurs de $5,10$ et $20$.
-<img src="https://assets-datascientest.s3.eu-west-1.amazonaws.com/104_stats_explo/sigmas_bon.png" style="height:300px"
+Comme la moyenne, l'**écart-type** (_standard deviation_ en anglais) est un indicateur qui ne se représente pas de manière graphique dans un boxplot. L'écart-type permet de mesurer la dispersion de données d'un échantillon. Dans l'image suivante on peut observer comment la loi change en faisant varier l'écart-type (noté avec la lettre sigma : **sigma**) pour des valeurs de 5,10 et 20.
 
-Plus l'écart-type est grand, plus les données sont dispersées et la courbe s'aplatit. <br
-La courbe en bleu ($\sigma = 20$) est beaucoup plus applatie que celle en jaune ($\sigma = 5)$.
+<img src="pictures/sigmas_bon.png">
 
-Mathématiquement l'**écart-type** d'une série statistique numérique $X = (x_1, x_2, ..., x_n)$ est calculé avec la formule suivante : <br
+Plus l'écart-type est grand, plus les données sont dispersées et la courbe s'aplatit.
+La courbe en bleu (sigma = 20) est beaucoup plus applatie que celle en jaune (sigma = 5).
 
-$$\hat \sigma_{X}= \sqrt{\frac{1}{n-1} \displaystyle \sum_{i=1}^{n} (x_i-\hat X)^2}$$
-où : <br
+Mathématiquement l'**écart-type** d'une série statistique numérique $X = (x_1, x_2, ..., x_n)$ est calculé avec la formule suivante :
 
-- $n =$ la taille de l'échantillon
+sigma*{X}= \sqrt{\frac{1}{n-1} \displaystyle \sum*{i=1}^{n} (x_i-^X)^2}
+où :
 
-- $x_i$ sont les **valeurs** de la série
+- n = la taille de l'échantillon
 
-- $\hat X =$ la moyenne.
+- x_i sont les **valeurs** de la série
+
+- ^X = la moyenne.
 
 - **(m)** Comme avant, calculer "à la main" l'écart-type de la colonne **`"cholesterol"`** et puis à l'aide de la méthode **`std`**.
 
@@ -301,40 +295,29 @@ print("Écart-type calculé avec la commande python: ", std_X2)
 
 df.describe()
 
-<hr style="border-width:2px;border-color:#75DFC1"
-<h3 style = "text-align:center"   2. Loi normale et simulation de données</h3  
-<hr style="border-width:2px;border-color:#75DFC1"
+# 2. Loi normale et simulation de données
 
-<div class="alert alert-info"
-<i class="fa fa-info-circle"</i &emsp; 
-Beaucoup de données utilisées tous les jours sont très similaires à des variations des lois de probabilités usuelles ou à des combinaisons des lois. C'est pour cela qu'il est toujours utile de savoir comment <strongsimuler</strong des données issues d'une loi de <strongprobabilité théorique</strong (loi normale, exponentielle, etc.).</div
+Beaucoup de données utilisées tous les jours sont très similaires à des variations des lois de probabilités usuelles ou à des combinaisons des lois. C'est pour cela qu'il est toujours utile de savoir comment simuler des données issues d'une loi de probabilité théorique (loi normale, exponentielle, etc.).
 
-La **loi normale**, souvent notée $\mathcal{N}(\mu, \sigma^2)$, est une loi de probabilité **continue**, c'est-à-dire qu'elle prend des valeurs dans un ensemble infini. Elle dépend de deux paramètres : $\mu$ (c'est la lettre grecque _mu_ et elle représente la moyenne théorique) et $\sigma$ (c'est la lettre grecque _sigma_ et elle représente l'écart-type théorique).
+La **loi normale**, souvent notée N(mu, sigma^2), est une loi de probabilité **continue**, c'est-à-dire qu'elle prend des valeurs dans un ensemble infini. Elle dépend de deux paramètres : mu (c'est la lettre grecque _mu_ et elle représente la moyenne théorique) et sigma (c'est la lettre grecque _sigma_ et elle représente l'écart-type théorique).
 
-La **loi normale centrée réduite** est un cas particulier de la loi normale avec $\mu = 0$ (centrée autour de 0) et $\sigma = 1$ (réduite).
+La **loi normale centrée réduite** est un cas particulier de la loi normale avec mu = 0 (centrée autour de 0) et sigma = 1 (réduite).
 
-Voici la distribution d'une **loi normale théorique centrée ($\mu = 0$)**, que l'on note $\mathcal{N}(\mu=0, \sigma^2)$ :
+Voici la distribution d'une **loi normale théorique centrée (mu = 0)**, que l'on note N(mu=0, sigma^2) :
 
-<img src="https://assets-datascientest.s3.eu-west-1.amazonaws.com/104_stats_explo/bell_curve.png" style="height:200px"
+<img src="pictures/bell_curve.png">
 
-Lorsqu'on regarde une densité de probabilités, pour se représenter des probabilités il faut toujours penser en terme de **surface** au dessous de la courbe de la densité. L'aire représente des probabilités d'événements. La surface totale située en dessous de la courbe (ici la somme de tous les fragments en bleu) est égale à $1$. <br
+Lorsqu'on regarde une densité de probabilités, pour se représenter des probabilités il faut toujours penser en terme de **surface** au dessous de la courbe de la densité. L'aire représente des probabilités d'événements. La surface totale située en dessous de la courbe (ici la somme de tous les fragments en bleu) est égale à 1.
 
-On remarque également que beaucoup de données issues de cette loi sont proches de $0$ parce que l'aire sous la courbe est ample autour de cette valeur. Tandis que pour des valeurs supérieures à $+2\sigma$ et inférieures à $-2\sigma$, qui correspondent aux surfaces en **bleu clair**, l'aire sous la courbe se réduit de plus en plus, donc la probabilité d'obtenir de telles valeurs est plus faible.
+On remarque également que beaucoup de données issues de cette loi sont proches de 0 parce que l'aire sous la courbe est ample autour de cette valeur. Tandis que pour des valeurs supérieures à +2sigma et inférieures à -2sigma, qui correspondent aux surfaces en **bleu clair**, l'aire sous la courbe se réduit de plus en plus, donc la probabilité d'obtenir de telles valeurs est plus faible.
 
-<div class="alert alert-info"
-<i class="fa fa-info-circle"</i &emsp;
-    Pour <bsimuler</b une loi en Python il faut utiliser
-    <codenp.random.normal(loc = ..., scale = ..., size = ...)</code
-    et bien spécifier les valeurs des paramètres propres à la loi.
-</div
+Pour simuler une loi en Python il faut utiliser np.random.normal(loc = ..., scale = ..., size = ...) et bien spécifier les valeurs des paramètres propres à la loi.
 
 - **(o)** Simuler $100$ tirages (à spécifier dans le paramètre **`size`** ) issus d'une loi normale centrée (à spécifier dans le paramètre **`loc`**) et réduite (à spécifier dans le paramètre **`scale`**).
 
 Nous pouvons afficher un histogramme à partir d'un échantillon en utilisant la commande **`.histplot()`** de la librairie **`seaborn`** :
 
-```py
 sns.histplot(echantillon)
-```
 
 - **(p)** À l'aide de la commande **`.histplot()`** de la librairie **`seaborn`**, afficher l'histogramme de cette variable. Si vous re-exécutez la cellule vous allez obtenir un histogramme différent parce que vos données ont été re-générées.
 
@@ -344,9 +327,7 @@ mu, sigma = 0, 1
 loi_cr = np.random.normal(loc = mu, scale = sigma, size = 100)
 sns.histplot(loi_cr);
 
-<div class="alert alert-info"
-<i class="fa fa-info-circle"</i &emsp; 
-    Puisque l'on travaille avec des <bdonnées simulées</b, la distribution simulée est différente de la loi théorique. Cependant les deux lois suivent la même tendance, et plus il y a de données, plus l'histogramme simulé se rapproche de la loi théorique. Vous pouvez essayer d'augmenter le paramètre <strong <codesize</code</strong , par exemple égal à $10000$, et observer l'histogramme.</div
+Puisque l'on travaille avec des données simulées, la distribution simulée est différente de la loi théorique. Cependant les deux lois suivent la même tendance, et plus il y a de données, plus l'histogramme simulé se rapproche de la loi théorique. Vous pouvez essayer d'augmenter le paramètre size, par exemple égal à $10000$, et observer l'histogramme.
 
 Les valeurs simulées changent à chaque fois que vous exécutez la cellule car il s'agit des nouveaux tirages de la même loi. Si vous voulez toujours garder le même échantillon vous pouvez utiliser la fonction **`np.random.seed()`** et choisir un paramètre **`seed`** égal à un nombre entier quelconque.
 
@@ -361,15 +342,13 @@ np.random.seed(15)
 loi_cr = np.random.normal(mu, sigma, 10000)
 sns.histplot(loi_cr);
 
-<hr style="border-width:2px;border-color:#75DFC1"
-<h3 style = "text-align:center"  3. Normalité de données</h3  
-<hr style="border-width:2px;border-color:#75DFC1"
+# 3. Normalité de données
 
 Le **Q-Q plot** , ou graphique des **quantiles** , permet de comparer les quantiles **théoriques d'une distribution (par défaut celles d'une loi normale)** avec les quantiles de l'**échantillon fourni**.
 
 - Si les données de l'échantillon sont issues d'une loi normale, nous nous attendons à ce que ce graphique soit **proche d'une droite (appelée la première bissectrice) qui fait** $45°$ avec l'axe des abscisses. En effet les quantiles de l'échantillon seront similaires aux quantiles théoriques d'une loi normale. Si les données de l'échantillon sont issues d'une distribution différente, nous n'obtiendrons pas des points alignés sur la première bissectrice.
 
-<img src = "https://assets-datascientest.s3.eu-west-1.amazonaws.com/104_stats_explo/qqplot.png" style = "height:1000px"
+<img src="pictures/qqplot.png">
 
 ```py
 # Import de la librairie statsmodels.api
@@ -394,11 +373,7 @@ import statsmodels.api as sm
 ech = np.random.normal(12, 3, 100)
 sm.qqplot(ech, fit = True, line = '45');
 
-# on remarque que si on enlève le paramètre fit = True, on n'observe pas
-
-# de similarités entre ech et une loi normale centrée et réduite
-
-# et c'est normal car ech a été générée par une loi normale de moyenne 12 et écart-type 3
+# on remarque que si on enlève le paramètre fit = True, on n'observe pas de similarités entre ech et une loi normale centrée et réduite et c'est normal car ech a été générée par une loi normale de moyenne 12 et écart-type 3
 
 Cette distribution s'approche d'une distribution normale malgré des légères distorsions sur les queues.
 De plus, l'alignement n'est pas parfait malgré le fait que l'échantillon soit issu de tirages indépendants d'une loi normale car on compare les quantiles théoriques à des quantiles empiriques, c'est-à-dire issus d'un échantillon.
@@ -424,36 +399,32 @@ sm.qqplot(var_num[column], line='45', fit = True)
 
 On remarque que les valeurs de l'âge et de la fréquence cardiaque maximale, s'approchent des quantiles d'une loi normale. Pour le reste ce n'est pas le cas et la distribution diffère considérablement.
 
-<hr style="border-width:2px;border-color:#75DFC1"
-<h3 style = "text-align:center"  4. Corrélation entre deux variables numériques</h3  
-<hr style="border-width:2px;border-color:#75DFC1"
+# 4. Corrélation entre deux variables numériques
 
 La corrélation entre deux variables numériques $X$ (par exemple l'âge d'une personne) et $Y$ (par exemple sa taille) permet de quantifier le lien entre les valeurs de ces deux variables.
 La corrélation, notée $\hat r$ est donnée par la formule :
 
-$$\hat r(X,Y) = \dfrac{\hat {\mathrm{cov}}(X,Y)}{\hat\sigma_X \times \hat\sigma_Y}$$
+^r(X,Y) = côv(X,Y)/sigma_X\*sigma_Y
 où :
 
-- $\hat{\mathrm{cov}}(X,Y)$ est la covariance entre $X$ et $Y$
+- côv(X,Y) est la covariance entre X et Y
 
-- $\hat \sigma_X$ est l'écart type de $X$
+- sigma_X est l'écart type de X
 
-- $\hat \sigma_Y$ est l'écart type de $Y$.
+- sigma_Y est l'écart type de Y.
 
-Par définition, la corrélation prend **toujours** des valeurs comprises entre $[-1,1]$. On parle d'une corrélation :
+Par définition, la corrélation prend **toujours** des valeurs comprises entre [-1,1]. On parle d'une corrélation :
 
-- **forte** si $\hat r \in [-1, -0.5] \text{ ou } [0.5, 1]$
-- ou **faible** si $\hat r \in ]-0.5, 0] \text{ ou } [0, 0.5[$. <br
+- **forte** si ^r appartient à [-1, -0.5] ou [0.5, 1]
+- ou **faible** si ^r appartient à `]-0.5, 0]` ou `[0, 0.5[`
 
-<div class="alert alert-info"
-<i class="fa fa-info-circle"</i &emsp;     
-Il faut savoir que ces seuils sont à titre informatif et que l'interprétation d'un coefficient de corrélation dépend du contexte et des objectifs. Une corrélation de 0,9 peut être <strongtrès faible</strong si l'on vérifie des quantités des <strongsubstances chimiques</strong en utilisant des instruments de qualité, mais peut être considérée comme <strongtrès élevée</strong dans les <strongsciences sociales</strong où il peut y avoir une contribution plus importante de facteurs de complication.</div
-<div class="alert alert-info"
-<i class="fa fa-info-circle"</i &emsp; 
-La corrélation est une mesure <strongsensible</strong aux valeurs extrêmes.</div
+Il faut savoir que ces seuils sont à titre informatif et que l'interprétation d'un coefficient de corrélation dépend du contexte et des objectifs. Une corrélation de 0,9 peut être très faible si l'on vérifie des quantités des substances chimiques en utilisant des instruments de qualité, mais peut être considérée comme très élevée dans les sciences sociales où il peut y avoir une contribution plus importante de facteurs de complication
 
-Graphiquement, on peut distinguer trois configurations différentes : <br
-<img src="https://assets-datascientest.s3.eu-west-1.amazonaws.com/104_stats_explo/corr_drawio.png" style="height:200px"
+La corrélation est une mesure sensible aux valeurs extrêmes.
+
+Graphiquement, on peut distinguer trois configurations différentes :
+
+<img src="pictures/corr_drawio.png">
 
 Avec la librairie **`numpy`** on peut calculer la corrélation entre deux variables.
 
@@ -463,12 +434,9 @@ np.corrcoef(X, Y)
 ```
 
 Le résultat retourne une matrice de corrélation qui correspond à :
-$
-\begin{bmatrix}
-\hat r(X,X) = 1 & \hat r(X,Y) \\
-\hat r(Y, X) & \hat r(Y,Y) = 1\\
-\end{bmatrix}
-$.
+
+^r(X,X) = 1 & ^r(X,Y) \\
+^r(Y, X) & çr(Y,Y) = 1\\
 
 À remarquer que la diagonale est toujours formée de valeurs égales à $1$ car on calcule la corrélation entre une variable et elle-même.
 
@@ -484,7 +452,5 @@ np.corrcoef(df["tension"], df["cholesterol"])
 
 df.corr()
 
-<div class="alert alert-info"
-<i class="fa fa-info-circle"</i &emsp; 
-Pour finir, attention à ne pas confondre la corrélation et la causalité. <br
-La corrélation signifie qu'il existe une association statistique entre les variables. La causalité signifie qu'un changement dans une variable entraîne un changement dans une autre variable, ce qui est une propriété plus puissante.</div
+Pour finir, attention à ne pas confondre la corrélation et la causalité.
+La corrélation signifie qu'il existe une association statistique entre les variables. La causalité signifie qu'un changement dans une variable entraîne un changement dans une autre variable, ce qui est une propriété plus puissante.
