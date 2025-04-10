@@ -138,3 +138,33 @@ print("produits vendus en 2018 :", sorted(Ventes_2018['Id Produit'].unique()))
 # A = set(Ventes_2017['Id Produit'])
 # B = set(Ventes_2018['Id Produit'])
 # B - A
+
+# h) Dans les dataframes Ventes_2018 et Ventes_2019, transformer les variables 'Date de Livraison' et 'Date de Commande' afin qu'elles soient de type datetime et au format : "%Y/%m/%d".
+Ventes_2018['Date de Commande'] = pd.to_datetime(Ventes_2018['Date de Commande'])
+Ventes_2018['Date de Livraison'] = pd.to_datetime(Ventes_2018['Date de Livraison'])
+Ventes_2019['Date de Commande'] = pd.to_datetime(Ventes_2019['Date de Commande'])
+Ventes_2019['Date de Livraison'] = pd.to_datetime(Ventes_2019['Date de Livraison'])
+
+# i) Pour chacun des fichiers de vente comptabiliser le nombre de lignes entièrement copiées. Supprimer les doublons s'il y en a.
+Ventes_2017.duplicated().sum()
+Ventes_2018.duplicated().sum()
+Ventes_2019.duplicated().sum()
+Ventes_2018.drop_duplicates(inplace = True)
+
+# j) Regrouper les trois DataFrame Ventes_2017, Ventes_2018 et Ventes_2019 dans un DataFrame nommé Ventes_globales.
+Ventes_globales = pd.concat([Ventes_2017,Ventes_2018,Ventes_2019])
+
+# k) Ajouter une colonne nommée "Jour de Livraison" à Ventes_globales qui contiendra le jour de la semaine durant lequel la livraison a été effectuée. Faire de même en ajoutant une colonne "Mois de Commande". (indice)
+Ventes_globales['Jour de Livraison'] = Ventes_globales['Date de Livraison'].dt.weekday
+Ventes_globales['Mois de Commande'] = Ventes_globales['Date de Commande'].dt.month
+
+# l) Toujours dans Ventes_globales, ajouter une colonne "Nouveaux Produits" qui contient False si la commande a été passée en 2017 et True sinon.
+Ventes_globales["Nouveaux Produits"] = Ventes_globales['Date de Commande'].dt.year.isin((2018 , 2019))
+
+# m) Regrouper les 3 colonnes 'Categorie 1', 'Categorie 2' et 'Categorie 3' sous une seule colonne 'Categorie' qui contient 1, 2 ou 3 en fonction de la catégorie du produit.
+produits['Categorie'] = produits['Categorie 1'] + 2*produits['Categorie 2'] + 3*produits['Categorie 3']
+produits.head()
+
+# n) Changer le type de la colonne 'Categorie' pour avoir des str. Ensuite, supprimer les colonnes 'Categorie 1', 'Categorie 2' et 'Categorie 3' qui sont maintenant inutiles.
+produits['Categorie'] = produits["Categorie"].astype('str')
+produits.drop(['Categorie 1', 'Categorie 2', 'Categorie 3'], axis=1, inplace=True)

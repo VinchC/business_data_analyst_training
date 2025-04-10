@@ -92,6 +92,9 @@ df['col_name'].unique()
 new_cols = { 'col1': 'new_col1', 'col2': 'new_col2'}
 df = df.rename(new_cols, axis = 1)
 
+# Ajouter uyne colonne à un dataframe
+df = df.assign(col_name=['val1', 'val2'])
+
 # Créer une nouvelle colonne et l'ajouter à l'index souhaité ==> ex. créer une nouvelle colonne `"error"` dans **`df`** renseignant la différence entre les variables `"col1"` et `"col2"`.
 
 # Créer une nouvelle col_name dans un df en y affectant le contenu d'une variable
@@ -109,6 +112,9 @@ df['col3'] = df.astype('str').apply(lambda row: row['col1']+'-'+row['col2'], axi
 df = df.replace(to_replace = ['value1', 'value2', 'value3', 'value4'], value = [1, 2, 3, 4]) 
 
 # Ajouter des modalités à une colonne selon des conditions ==> ex. `court-terme` pour tous les prêts d'une durée inférieure ou égale à 10 mois
+
+# Supprimer des colonnes inutiles
+df.drop(['col1', 'col2', 'col3'], axis=1, inplace=True)
 
 
 
@@ -128,6 +134,9 @@ df['col_name'] = df['col_name'].astype(float / str / int)
 # Convertir le type d'une colonne - 2ème méthode 
 new_types = { 'col1': 'int', 'col2': 'str'}
 df = df.astype(new_types)
+
+# Changer le type d'une colonne au format datetime
+df['col'] = pd.to_datetime(df['col'])
 
 # Appliquer sur les valeurs de col_name une fonction func_name prenant en argument une chaîne de caractères et qui renvoie l'élément n de son découpage par le caractère '-'.
 def func_name(e):
@@ -213,4 +222,7 @@ df_col = df.loc[df['coln'] == 'value']
 
 # Stocker dans un autre df appelé col1_col2 le contenu intégral des colonnes col1 et col2 ===> toutes les lignes, moins de colonnes
 col1_col2 = df[['col1, col2']]
+
+# Fusionner plusieurs df df1, df2 et df3 en un seul df0
+df0 = pd.concat([df1, df2, df3])
 

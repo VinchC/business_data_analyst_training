@@ -180,7 +180,7 @@ j. Regrouper les trois DataFrame Ventes_2017, Ventes_2018 et Ventes_2019 dans un
 
 Les dates au format année/mois/jour portent parfois moins de sens que des informations sur la date comme le jour de la semaine par exemple. Ainsi, il est conseillé de regarder ce qui doit être mis en valeur et de rajouter des colonnes pour l'expliciter.
 
-k. Ajouter une colonne nommée "Jour de Livraison" à Ventes_globales qui contiendra le jour de la semaine durant lequel la livraison a été effectuée. Faire de même en ajoutant une colonne "Mois de Commande". (indice)
+k. Ajouter une colonne nommée "Jour de Livraison" à Ventes_globales qui contiendra le jour de la semaine durant lequel la livraison a été effectuée. Faire de même en ajoutant une colonne "Mois de Commande". (<a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.weekday.html">indice</a>)
 ​
 ​
 l. Toujours dans Ventes_globales, ajouter une colonne "Nouveaux Produits" qui contient False si la commande a été passée en 2017 et True sinon.
