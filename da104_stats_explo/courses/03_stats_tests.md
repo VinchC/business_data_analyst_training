@@ -247,7 +247,7 @@ Afficher les résultats, observer la p-valeur, c'est-à-dire la valeur 𝑃𝑅(
 
 (Khi-deux) d'indépendance
 Ce test permet d'étudier le lien entre deux variables qualitatives.
-En statistiques, le test du khi-deux d’indépendance permet de vérifier s’il existe une association significative entre deux variables qualitatives. Voici comment il fonctionne :
+En statistiques, le test du <a href="https://fr.wikipedia.org/wiki/Test_du_%CF%87%C2%B2">khi-deux d’indépendance</a> permet de vérifier s’il existe une association significative entre deux variables qualitatives. Voici comment il fonctionne :
 
 - Création d’un Tableau de Contingence :
   On commence par organiser les données dans un tableau de contingence où les lignes représentent les catégories d'une variable et les colonnes celles de l'autre variable.
