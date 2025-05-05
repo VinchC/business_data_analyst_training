@@ -24,6 +24,9 @@ df.head(10)
 # Afficher les 10 dernières lignes
 df.tail(10)
 
+# Afficher les infos d'un df
+df.infos()
+
 # Afficher les dimensions d'un df ==> ex. (35, 7)
 df.shape
 
@@ -39,14 +42,20 @@ df.columns[-1]
 # Afficher les principales méthodes statistiques et valeurs significatives du df pour les valeurs quantitatives
 df.describe()
 
-# Afficher les principales méthodes statistiques et valeurs significatives du df pour les valeurs quantitatives avec condition sur les valeurs d'une colonne 
+# Afficher les principales méthodes statistiques et valeurs significatives du df pour les valeurs quantitatives avec filtre condition sur les valeurs d'une colonne 
 df[df['col_name'] > 0].describe()
 
 # Afficher les modalités d'une colonne col_name et leur nombre respectif d'occurrences
 df['col_name'].value_counts()
 
+# Afficher les modalités d'une colonne col_name et leur nombre respectif d'occurrences en les classant par ordre chronologique
+df['col_name'].value_counts().sort_index()
+
 # Afficher le mode (la modalité la plus fréquente) d'une colonne
 df['col_name'].mode()[0]
+
+# Filtrer les valeurs d'une colonne sur une année (ici, 2020)
+new_df = df['col_name'][df['col_name'].dt.year==2020]
 
 # Trier les valeurs selon une colonne
 
@@ -92,7 +101,7 @@ df['col_name'].unique()
 new_cols = { 'col1': 'new_col1', 'col2': 'new_col2'}
 df = df.rename(new_cols, axis = 1)
 
-# Ajouter uyne colonne à un dataframe
+# Ajouter une colonne à un dataframe
 df = df.assign(col_name=['val1', 'val2'])
 
 # Créer une nouvelle colonne et l'ajouter à l'index souhaité ==> ex. créer une nouvelle colonne `"error"` dans **`df`** renseignant la différence entre les variables `"col1"` et `"col2"`.
@@ -100,8 +109,11 @@ df = df.assign(col_name=['val1', 'val2'])
 # Créer une nouvelle col_name dans un df en y affectant le contenu d'une variable
 df['col_name'] = var_name
 
-# Créer une nouvelle colonne new_col en effectuant des opérations sur une colonne existante col_name
-df['new_col'] = df['col_name'].apply(lambda date: date.split('-')[n])
+# Créer une nouvelle colonne day / month / year / week en effectuant des opérations sur une colonne existante date
+df['day'] = df['date'].dt.weekday
+df['month'] = df['date'].dt.month
+df['year'] = df['date'].dt.year
+df['week'] = df['date'].dt.isocalendar().week
 
 # Créer une col3 contenant la concaténation des valeurs de deux colonnes col1 et col2 (converties en chaîne sde caractères) séparées par un tiret '-'
 df['col3'] = df.astype('str').apply(lambda row: row['col1']+'-'+row['col2'], axis = 1)
@@ -226,3 +238,5 @@ col1_col2 = df[['col1, col2']]
 # Fusionner plusieurs df df1, df2 et df3 en un seul df0
 df0 = pd.concat([df1, df2, df3])
 
+# Création df2 groupant les sommes des valeurs d'une colonne col_name d'un df originel par date
+df2 = df.groupby('date')['col_name'].sum()
