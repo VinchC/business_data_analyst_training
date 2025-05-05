@@ -44,3 +44,9 @@ sns.barplot(ax=axes[0], x=df.index, y=df['quantity']) # barplot
 axes[0].set_title('Nombre de ventes par jour'); # Titre
 
 axes[1].pie(df_day_sum['quantity'],radius=1.5,labels=['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'],autopct='%1.0f%%',labeldistance=1.1,pctdistance=0.5); # pieplot
+
+# (u) Affichez, dans un graphique en barre, les quantités vendues pour les 20 meilleurs produits.
+plt.figure(figsize=(17,8))
+
+sns.barplot(x=df.index[:20],y=df.values[:20])
+plt.title('Somme des values par valeur en index')

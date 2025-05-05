@@ -58,6 +58,7 @@ df['col_name'].mode()[0]
 new_df = df['col_name'][df['col_name'].dt.year==2020]
 
 # Trier les valeurs selon une colonne
+df = df.col_name.sort_values(ascending=False)
 
 # Trier les valeurs selon plusieurs colonnes hiérarchisées
 
@@ -238,5 +239,11 @@ col1_col2 = df[['col1, col2']]
 # Fusionner plusieurs df df1, df2 et df3 en un seul df0
 df0 = pd.concat([df1, df2, df3])
 
-# Création df2 groupant les sommes des valeurs d'une colonne col_name d'un df originel par date
-df2 = df.groupby('date')['col_name'].sum()
+# Création df2 groupant les sommes des valeurs de toutes les colonnes d'un df originel par date
+df2 = df.groupby('date').sum()
+
+# Création df2 groupant les sommes des valeurs de deux colonnes col_name1 et col_name2 d'un df originel par date
+df2 = df.groupby('date')[['col_name1', 'col_name2']].sum()
+
+# Afficher la somme des quantités vendues par 'col1' et par 'col2' dans un DataFrame nommé df2.
+df2 = df.groupby(['col1', 'col2']).agg({'quantity':sum})
