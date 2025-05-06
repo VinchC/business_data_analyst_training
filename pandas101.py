@@ -206,6 +206,9 @@ df = df.drop_duplicates(keep = 'first', inplace = False)
 # Supprimer les doublons d'une colonne en particulier en gardant la dernière occurrence
 df.drop_duplicates(subset = 'col_name', keep = 'last', inplace = False)
 
+# Supprimer toutes les entrées vides d'un df
+df = df.dropna()
+
 # Supprimer les entrées pour lequelles les valeurs de 2 colonnes col_1 et col_2 sont vides
 df = df.dropna(axis = 0, how = 'all', subset = ['col_1', 'col_2'])
 
@@ -225,6 +228,8 @@ df['col_name'] = df['col_name'].fillna(df['col_name'].mean())
 
 ################################################ Création de df à partir d'autres df
 # Fusionner deux DataFrames via une colonne commune
+# (g) A l'aide d'un .merge, fusionnez ces deux jeux de données par leur index commun dans un DataFrame nommé fusion.
+df_merged = df1.merge(df2,on='col_name')
 
 # Scinder en deux un df
 var_to_df2 = ['col1', 'col2', 'col3']
