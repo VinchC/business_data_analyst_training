@@ -137,9 +137,7 @@ df.drop(['col1', 'col2', 'col3'], axis=1, inplace=True)
 df['col_name'] = [str(i).replace(",", ".") for i in df["col_name"]]
 
 # Remplacer les valeurs d'une colonne par d'autres
-df.replace({'incorrect_val1' : 'correct_val1', 
-                 'incorrect_val2' : 'correct_val2'},
-                inplace = True)
+df.replace({'incorrect_val1' : 'correct_val1', 'incorrect_val2' : 'correct_val2'}, inplace = True)
 
 # Convertir le type d'une colonne - 1ère méthode 
 df['col_name'] = df['col_name'].astype(float / str / int)
@@ -237,6 +235,8 @@ df2 = df[var_to_df2]
 
 # Stocker dans un autre df appelé df_col tout le contenu des lignes de df dont la valeur de la colonne 'coln' est égale à la "value" choisie ===> toutes les colonnes, moins de lignes
 df_col = df.loc[df['coln'] == 'value']
+ou
+df_col = df.loc['coln']
 
 # Stocker dans un autre df appelé col1_col2 le contenu intégral des colonnes col1 et col2 ===> toutes les lignes, moins de colonnes
 col1_col2 = df[['col1, col2']]
@@ -252,3 +252,9 @@ df2 = df.groupby('date')[['col_name1', 'col_name2']].sum()
 
 # Afficher la somme des quantités vendues par 'col1' et par 'col2' dans un DataFrame nommé df2.
 df2 = df.groupby(['col1', 'col2']).agg({'quantity':sum})
+
+# Création df2 indiquant le nombre d'occurences des valeurs distinctes d'une col2 groupées par col1 ET col2
+df2 = df.groupby(['col1', 'col2']).agg({'col2': 'count'})
+
+# Création df2 groupant par col1 le somme des valeurs de col2 en les triant par col2 décroissant
+df2 = df.groupby('col1').agg({'col2':'sum'}).sort_values(by="col2",ascending=False).reset_index()

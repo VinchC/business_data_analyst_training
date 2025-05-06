@@ -28,7 +28,7 @@ np.corrcoef(X, Y)
 import matplotlib.pyplot as plt
 
 # Définition des dimensions du graphe
-plt.figure(figsize=(X, Y))
+plt.figure(figsize=(25, 10))
 
 # Définition des valeurs représentées (ex. dates et volumes)
 plt.plot_date(x = values.index, y = values, linestyle='-', color='blue')
