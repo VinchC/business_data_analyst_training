@@ -187,6 +187,9 @@ df['col_name'].mean()
 # Calculer la moyenne d'une colonne pour les valeurs strictement supérieures à 0
 df[df['col_name'] > 0].mean()
 
+# Calculer l'ensemble des moyennes des valeurs de col1 groupées par chaque valeur distincte d'une colonne col1
+df2 = df.groupby('col1').agg({'col2': 'mean'})
+
 
 
 

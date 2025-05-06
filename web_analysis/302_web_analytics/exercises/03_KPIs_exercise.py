@@ -80,3 +80,90 @@ plt.figure(figsize=(5,5))
 # Question m
 sns.barplot(x=loyal_cust.head(10).price, y=loyal_cust.head(10).index,orient='h')
 plt.title('Loyal customers')
+
+## II. Calcul des KPIs
+# (a) Calculez le chiffre d'affaires de ce site e-commerce.
+CA = All_purchase['price'].sum()
+print("Le chiffre d'affaires observé est de ", CA.round(2),'$')
+
+# (b) Calculez le Average Revenue (AR) sur l'ensemble des données puis le AMR sur chaque mois.
+# Sur l'ensemble du Dataset (AR)
+
+nb_user = All_purchase.nunique().user_id
+
+revenu_moyen = All_purchase['price'].mean()
+
+AR = nb_user * revenu_moyen
+
+# Par mois (AMR)
+
+AMR_Data = All_purchase.groupby('y_m').agg({'price':'mean','user_id':'count'})
+
+AMR = (AMR_Data['price']*AMR_Data['user_id']).values
+
+# Affichage 
+
+print("Le AR est de %.2f"%(AR),'$')
+
+for i,j in enumerate(AMR_Data.index):
+    print('Pour le mois de', j, ', le AMR est de %.2f'%(AMR[i]),'$')
+
+
+# (c) Calculez le panier moyen pour ce site e-commerce sur toute la période, puis par mois.
+panier_moyen = All_purchase['price'].mean()
+
+panier_moyen_mensuel = All_purchase.groupby('y_m').agg({'price':'mean'})
+
+print("Le panier moyen est d'environ %.2f"%(panier_moyen),"$")
+
+for i,month in zip(range(5),['2019-10','2019-11','2019-12','2020-01','2020-02']):
+    print("Le panier moyen au mois de ",month,"est de %.2f "%(panier_moyen_mensuel.values[i][0]),"$")
+    
+# (d) Calculez le taux d'abandon du panier sur l'ensemble des données, puis par mois.
+# Sur l'ensemble du Dataset
+
+drop_all = All.groupby('event_type').agg({'event_type':'count'})
+Global_Abandonment = ((drop_all.loc['remove'][0]/drop_all.loc['cart'][0])*100).round(2)
+
+# Par mois 
+
+# Abandon
+drop_month_remove = All.groupby(['event_type','y_m']).agg({'event_type':'count'}).loc[['remove']]
+
+# Ajout au panier 
+drop_month_cart = All.groupby(['event_type','y_m']).agg({'event_type':'count'}).loc[['cart']]
+Monthly_abandonment = (drop_month_remove['event_type'].values/drop_month_cart['event_type'].values)*100
+
+# Affichage 
+print("Le taux d'abandon du panier est de %.2f"%(Global_Abandonment),"%")
+for i,j in enumerate(['2019-11','2019-12','2020-01','2020-02']):
+    print("Le taux d'abandon pour le mois de ",j,'est de %.2f'%(Monthly_abandonment[i]),'%')
+    
+# En reprenant la liste des plus gros clients, on va calculer la Lifetime value
+LTV = loyal_cust['price'].mean()
+print("A long terme, un client rapporte %.2f" %(LTV),"$")
+
+# (f) Calculez le taux de rebond sur l'ensemble du dataset.
+All_views = All[All['event_type']=='view']
+
+count_views = All_views.groupby('user_id').agg({'event_type':'count'})
+
+count_views = count_views[count_views['event_type']==1].event_type.sum() # permet de compter le nombre d'individus n'ayant vu qu'une seule page 
+Bounce_rate = (count_views/(nb_user))*100
+
+print("Le taux de rebond observé est de = %.2f" % (Bounce_rate),'%')
+
+# (g) Calculez ces deux taux et affichez-en une représentation dans un graphique de votre choix.
+# Le graphique devra prendre en compte les dates auxquelles ces taux sont calculés*.
+plt.figure(figsize=(20,15))
+
+# Conversion rate
+plt.subplot(222)
+plt.plot_date(['2019-09','2019-10', '2019-11', '2019-12', '2020-01', '2020-02'],purchase/(view+cart+remove+purchase),linestyle='-') 
+plt.title('Conversion rate per month')
+
+# Abandonment rate
+plt.subplot(221)
+plt.plot_date(['2019-09','2019-10', '2019-11', '2019-12', '2020-01', '2020-02'],(1-(purchase/cart)),linestyle='-')
+plt.title('Cart abandonment rate per month')
+
