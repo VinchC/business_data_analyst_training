@@ -130,3 +130,41 @@ table2
 # 3 - Conclusion : 
 # p-val > 5% 
 # on ne peut pas conclure à une influence significative de la variable douleur thoracique sur la tension.
+
+
+# (v) Pour faire un test de 𝜒2, nous devons passer par une étape intermédiaire qui permet de réaliser une table de contingence entre la variable sex et la variable douleur_thor. Cette table permet de compter les occurrences selon les deux variables qualitatives.
+# Pour réaliser une table de contingence nous pouvons utiliser la fonction crosstab de pandas.
+ct = pd.crosstab(df['douleur_thor'], df['sex'])
+ct
+
+# Explication sur la table de contingence : 
+# dans le dataframe df on a 70 femmes avec la modalité ASY pour la variable douleur_thor on a également 150 hommes avec la modalité NAP etc.
+
+# (w) Nous remarquons que le type ASY est présent chez de nombreux hommes. Pouvons-nous dire que les hommes ont plus tendance à avoir le type ASY?
+ct = pd.crosstab(df['douleur_thor'], df['sex'])
+ct
+
+# Explication sur la table de contingence : 
+# dans le dataframe df on a 36% de femmes avec la modalité ASY pour la variable douleur_thor
+# on a également 20% hommes avec la modalité NAP etc.
+
+# (x) Poser les hypothèses du test statistique qui permet de répondre à cette problématique.
+# (y) Importer la fonction chi2_contingency du module scipy.stats. Cette fonction prend en argument un tableau de contingence et réalise le test de 𝜒2 pour les deux variables qualitatives. Comme pour le test de corrélation, le résultat retourné est un tuple : la première valeur est la statistique du test et la deuxième est la p-valeur. Réaliser le test et conclure.
+## Hypothèses : 
+# 𝐻0 : La variable douleur thoracique est indépendante du sexe de l'individu
+# H1 : La variable douleur thoracique n'est pas indépendante du sexe
+
+## Le test chi2 d'indépendance : 
+from scipy.stats import chi2_contingency
+resultats_chi2 = chi2_contingency(ct)
+
+statistique = resultats_chi2[0]
+p_valeur = resultats_chi2[1]
+print("La statistique du test est : ", statistique, "\n"
+      "La p-valeur du test est : ", p_valeur, "\n")
+
+
+# Conclusions : 
+print("Conclusion : p-val très petite (< 0.05) => on rejette H0 et on accepte H1.")
+# on conclut à une dépendance entre le sex et le type de douleur thoracique
+# le test n'en dit pas plus sur la dépendance, il vérifie seulement son existence.

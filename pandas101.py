@@ -24,6 +24,9 @@ df.head(10)
 # Afficher les 10 dernières lignes
 df.tail(10)
 
+# Afficher les infos d'un df
+df.infos()
+
 # Afficher les dimensions d'un df ==> ex. (35, 7)
 df.shape
 
@@ -39,16 +42,23 @@ df.columns[-1]
 # Afficher les principales méthodes statistiques et valeurs significatives du df pour les valeurs quantitatives
 df.describe()
 
-# Afficher les principales méthodes statistiques et valeurs significatives du df pour les valeurs quantitatives avec condition sur les valeurs d'une colonne 
+# Afficher les principales méthodes statistiques et valeurs significatives du df pour les valeurs quantitatives avec filtre condition sur les valeurs d'une colonne 
 df[df['col_name'] > 0].describe()
 
 # Afficher les modalités d'une colonne col_name et leur nombre respectif d'occurrences
 df['col_name'].value_counts()
 
+# Afficher les modalités d'une colonne col_name et leur nombre respectif d'occurrences en les classant par ordre chronologique
+df['col_name'].value_counts().sort_index()
+
 # Afficher le mode (la modalité la plus fréquente) d'une colonne
 df['col_name'].mode()[0]
 
+# Filtrer les valeurs d'une colonne sur une année (ici, 2020)
+new_df = df['col_name'][df['col_name'].dt.year==2020]
+
 # Trier les valeurs selon une colonne
+df = df.col_name.sort_values(ascending=False)
 
 # Trier les valeurs selon plusieurs colonnes hiérarchisées
 
@@ -92,7 +102,7 @@ df['col_name'].unique()
 new_cols = { 'col1': 'new_col1', 'col2': 'new_col2'}
 df = df.rename(new_cols, axis = 1)
 
-# Ajouter uyne colonne à un dataframe
+# Ajouter une colonne à un dataframe
 df = df.assign(col_name=['val1', 'val2'])
 
 # Créer une nouvelle colonne et l'ajouter à l'index souhaité ==> ex. créer une nouvelle colonne `"error"` dans **`df`** renseignant la différence entre les variables `"col1"` et `"col2"`.
@@ -100,8 +110,11 @@ df = df.assign(col_name=['val1', 'val2'])
 # Créer une nouvelle col_name dans un df en y affectant le contenu d'une variable
 df['col_name'] = var_name
 
-# Créer une nouvelle colonne new_col en effectuant des opérations sur une colonne existante col_name
-df['new_col'] = df['col_name'].apply(lambda date: date.split('-')[n])
+# Créer une nouvelle colonne day / month / year / week en effectuant des opérations sur une colonne existante date
+df['day'] = df['date'].dt.weekday
+df['month'] = df['date'].dt.month
+df['year'] = df['date'].dt.year
+df['week'] = df['date'].dt.isocalendar().week
 
 # Créer une col3 contenant la concaténation des valeurs de deux colonnes col1 et col2 (converties en chaîne sde caractères) séparées par un tiret '-'
 df['col3'] = df.astype('str').apply(lambda row: row['col1']+'-'+row['col2'], axis = 1)
@@ -124,9 +137,7 @@ df.drop(['col1', 'col2', 'col3'], axis=1, inplace=True)
 df['col_name'] = [str(i).replace(",", ".") for i in df["col_name"]]
 
 # Remplacer les valeurs d'une colonne par d'autres
-df.replace({'incorrect_val1' : 'correct_val1', 
-                 'incorrect_val2' : 'correct_val2'},
-                inplace = True)
+df.replace({'incorrect_val1' : 'correct_val1', 'incorrect_val2' : 'correct_val2'}, inplace = True)
 
 # Convertir le type d'une colonne - 1ère méthode 
 df['col_name'] = df['col_name'].astype(float / str / int)
@@ -176,6 +187,9 @@ df['col_name'].mean()
 # Calculer la moyenne d'une colonne pour les valeurs strictement supérieures à 0
 df[df['col_name'] > 0].mean()
 
+# Calculer l'ensemble des moyennes des valeurs de col1 groupées par chaque valeur distincte d'une colonne col1
+df2 = df.groupby('col1').agg({'col2': 'mean'})
+
 
 
 
@@ -192,6 +206,9 @@ df = df.drop_duplicates(keep = 'first', inplace = False)
 
 # Supprimer les doublons d'une colonne en particulier en gardant la dernière occurrence
 df.drop_duplicates(subset = 'col_name', keep = 'last', inplace = False)
+
+# Supprimer toutes les entrées vides d'un df
+df = df.dropna()
 
 # Supprimer les entrées pour lequelles les valeurs de 2 colonnes col_1 et col_2 sont vides
 df = df.dropna(axis = 0, how = 'all', subset = ['col_1', 'col_2'])
@@ -212,6 +229,8 @@ df['col_name'] = df['col_name'].fillna(df['col_name'].mean())
 
 ################################################ Création de df à partir d'autres df
 # Fusionner deux DataFrames via une colonne commune
+# (g) A l'aide d'un .merge, fusionnez ces deux jeux de données par leur index commun dans un DataFrame nommé fusion.
+df_merged = df1.merge(df2,on='col_name')
 
 # Scinder en deux un df
 var_to_df2 = ['col1', 'col2', 'col3']
@@ -219,6 +238,8 @@ df2 = df[var_to_df2]
 
 # Stocker dans un autre df appelé df_col tout le contenu des lignes de df dont la valeur de la colonne 'coln' est égale à la "value" choisie ===> toutes les colonnes, moins de lignes
 df_col = df.loc[df['coln'] == 'value']
+ou
+df_col = df.loc['coln']
 
 # Stocker dans un autre df appelé col1_col2 le contenu intégral des colonnes col1 et col2 ===> toutes les lignes, moins de colonnes
 col1_col2 = df[['col1, col2']]
@@ -226,3 +247,17 @@ col1_col2 = df[['col1, col2']]
 # Fusionner plusieurs df df1, df2 et df3 en un seul df0
 df0 = pd.concat([df1, df2, df3])
 
+# Création df2 groupant les sommes des valeurs de toutes les colonnes d'un df originel par date
+df2 = df.groupby('date').sum()
+
+# Création df2 groupant les sommes des valeurs de deux colonnes col_name1 et col_name2 d'un df originel par date
+df2 = df.groupby('date')[['col_name1', 'col_name2']].sum()
+
+# Afficher la somme des quantités vendues par 'col1' et par 'col2' dans un DataFrame nommé df2.
+df2 = df.groupby(['col1', 'col2']).agg({'quantity':sum})
+
+# Création df2 indiquant le nombre d'occurences des valeurs distinctes d'une col2 groupées par col1 ET col2
+df2 = df.groupby(['col1', 'col2']).agg({'col2': 'count'})
+
+# Création df2 groupant par col1 le somme des valeurs de col2 en les triant par col2 décroissant
+df2 = df.groupby('col1').agg({'col2':'sum'}).sort_values(by="col2",ascending=False).reset_index()
