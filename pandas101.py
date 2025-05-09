@@ -98,7 +98,16 @@ df['col_name'].unique()
 
 
 
+# Crééation DataFrame
+import pandas as pd
+liste = [entreprise,lieu,telephone,cursus,debut,alumni,satisfaction,cac40,taux_completion]
 
+df_dst = pd.DataFrame([liste], columns=["Entreprise", "Lieu", "Telephone","Cursus","Date de début","Nb Alumni","Satisfaction","Taux de completion","Cac40"])
+display(df_dst.head())
+
+df_alumni = pd.DataFrame(list(zip(noms, jobs,companies,notes,avis)),
+               columns =['Nom', 'Métier','Entreprise','Note','Commentaire'])
+df_alumni.head()
 
 
 
