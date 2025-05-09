@@ -63,7 +63,7 @@ type_names = ['view', 'remove','cart', 'purchase']
 colors = ['purple', 'green', 'red', 'blue']
 for i, types in enumerate([view, remove, cart, purchase]):
     plt.figure(figsize=(10, 3))
-    plt.plot_date(['2019-09','2019-10', '2019-11', '2019-12', '2020-01', '2020-02'], types['event_type'], linestyle='-',color=colors[i],label=type_names[i]);
+    plt.plot_date(['2019-09','2019-10', '2019-11', '2019-12', '2020-01', '2020-02'], types['event_type'], linestyle='-',color=colors[i],label=type_names[i])
     plt.title('Evolution of ' + type_names[i])
     plt.legend()
     
