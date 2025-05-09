@@ -45,7 +45,7 @@ df.describe()
 # Afficher les principales méthodes statistiques et valeurs significatives du df pour les valeurs quantitatives avec filtre condition sur les valeurs d'une colonne 
 df[df['col_name'] > 0].describe()
 
-# Afficher les modalités d'une colonne col_name et leur nombre respectif d'occurrences
+# Afficher la fréquence des modalités d'une colonne col_name et leur nombre respectif d'occurrences
 df['col_name'].value_counts()
 
 # Afficher les modalités d'une colonne col_name et leur nombre respectif d'occurrences en les classant par ordre chronologique
@@ -62,8 +62,12 @@ df = df.col_name.sort_values(ascending=False)
 
 # Trier les valeurs selon plusieurs colonnes hiérarchisées
 
-# Afficher le nb de NaN pour chaque colonne
-df.isna().sum(axis = 0)
+# Détecter le nombre de valeurs manquantes pour chaque colonne
+df.isna().sum()
+pd.isna(df).sum()
+
+# Détecter le nombre de valeurs renseignées pour chaque colonne
+df.notna().sum(axis = 0)
 
 # Afficher le nombre de NaN dans une colonne
 df['col_name'].isna().sum(axis = 0)
@@ -73,6 +77,9 @@ df.isna().any(axis = 0)
 
 # Afficher le total de lignes ayant des valeurs manquantes (= NaN)
 df.isna().any(axis = 1).sum()
+
+# vérifier qu'une valeur est un NaN
+print(pd.isna(df.col_name[0]))
 
 # Afficher le nom de la colonne qui a le plus de NaN
 df.isna().sum(axis = 0).idxmax()
@@ -126,7 +133,7 @@ df = df.replace(to_replace = ['value1', 'value2', 'value3', 'value4'], value = [
 
 # Ajouter des modalités à une colonne selon des conditions ==> ex. `court-terme` pour tous les prêts d'une durée inférieure ou égale à 10 mois
 
-# Supprimer des colonnes inutiles
+# Créer un df en supprimant des colonnes inutiles
 df.drop(['col1', 'col2', 'col3'], axis=1, inplace=True)
 
 
@@ -211,21 +218,34 @@ df.drop_duplicates(subset = 'col_name', keep = 'last', inplace = False)
 df = df.dropna()
 
 # Supprimer les entrées pour lequelles les valeurs de 2 colonnes col_1 et col_2 sont vides
-df = df.dropna(axis = 0, how = 'all', subset = ['col_1', 'col_2'])
+df = df.dropna(axis = 0, how = 'all', subset = ['col_1', 'col_2'], inplace = True)
 
-# Remplacer les NaN d'une colonne par -1
-df['col_name'] = df['col_name'].fillna(-1)
+# Remplacer les NaN d'une colonne par 0 ou -1
+df['col_name'] = df['col_name'].fillna(0 | -1)
 
 # Remplacer les NaN d'une colonne par son mode
-df['col_name'] = df['col_name'].fillna(df['col_name'].mode()[0])
+df['col_name'] = df['col_name'].fillna(df['col_name'].mode()[0], inplace = True)
 
 # Remplacer les valeurs manquantes d'une colonne par la moyenne de cette colonne
 df['col_name'] = df['col_name'].fillna(df['col_name'].mean())
 
+# Remplace les NAs de chaque colonne par la moyenne de la colonne
+df.fillna(df.mean(), inplace=True)
+
+# Chaque NA sera remplacée par la dernière valeur non NA de sa colonne
+df.fillna(method='pad', inplace=True)
+
+# Chaque NA sera remplacée par la valeur suivante non NA de sa colonne
+df.fillna(method='bfill', inplace=True)
+
+# Remplace les NAs de la colonne 'col_1' par val_1 et celles de la colonne 'col_2' par val_2
+df.fillna({'col_1' : val_1 , 'col_2' : val_2})
+
 # Passer une chaîne de caractères en majuscule
 'string'.upper()
 
-
+# Calculer dans une variable mean_diff_2 la différence moyenne entre le prix et le coût unitaire pour les produits de Catégorie 2.
+mean_diff_2 = (Produits.loc[Produits.Categorie == 'Categorie 2', 'Prix unitaire'] - Produits.loc[Produits.Categorie == 'Categorie 2', 'Cout unitaire']).mean()
 
 ################################################ Création de df à partir d'autres df
 # Fusionner deux DataFrames via une colonne commune
