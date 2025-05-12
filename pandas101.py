@@ -226,6 +226,9 @@ df.drop_duplicates(subset = 'col_name', keep = 'last', inplace = False)
 # Supprimer toutes les entrées vides d'un df
 df = df.dropna()
 
+# Supprimer les valeurs manquantes d'une colonne 
+df = df.dropna(subset=['col_name'])
+
 # Supprimer les entrées pour lequelles les valeurs de 2 colonnes col_1 et col_2 sont vides
 df = df.dropna(axis = 0, how = 'all', subset = ['col_1', 'col_2'], inplace = True)
 
@@ -247,7 +250,7 @@ df.fillna(method='pad', inplace=True)
 # Chaque NA sera remplacée par la valeur suivante non NA de sa colonne
 df.fillna(method='bfill', inplace=True)
 
-# Remplace les NAs de la colonne 'col_1' par val_1 et celles de la colonne 'col_2' par val_2
+# Remplace les NAs de la colonne 'col_1' par val_1 et celles de la colonne 'col_2' par val_2 via un dictionnaire
 df.fillna({'col_1' : val_1 , 'col_2' : val_2})
 
 # Passer une chaîne de caractères en majuscule
