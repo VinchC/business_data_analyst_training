@@ -8,7 +8,6 @@ team_names, team_possession, team_total_pass, ratings_player, pass_player, role_
 print(team_names[1190418])
 
 
-
 """
 (b) Quelle a été la possession de l'équipe sur le match ?
 """
